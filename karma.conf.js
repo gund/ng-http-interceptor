@@ -20,7 +20,7 @@ module.exports = function (config) {
     remapIstanbulReporter: {
       reports: {
         html: 'coverage',
-        lcovonly: './coverage/lcov.info'
+        lcovonly: './coverage/coverage.lcov'
       }
     },
     angularCli: {
