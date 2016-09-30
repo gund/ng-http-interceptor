@@ -1,6 +1,6 @@
 {
   "name": "ng2-http-interceptor",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "scripts": {
     "lint": "tslint src/**/*.ts",
     "test": "npm run lint && ng test --watch=false",
