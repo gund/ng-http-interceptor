@@ -3,7 +3,8 @@
   "version": "0.2.12",
   "scripts": {
     "lint": "tslint src/**/*.ts",
-    "test": "npm run lint && ng test --watch=false",
+    "test": "ng test",
+    "test:ci": "npm run lint && npm run test -- --watch=false",
     "test:report": "cat ./coverage/coverage.lcov | ./node_modules/coveralls/bin/coveralls.js -v",
     "prepublish": "npm run build",
     "build": "tsc"
