@@ -27,7 +27,13 @@ export class HttpInterceptorService implements HttpInterceptor {
   }
 
   _interceptRequest(method: string, data: any[]): any[] {
-    return this._requestInterceptors.reduce((d, i) => i(d, method), data);
+    return this._requestInterceptors.reduce((d, i) => {
+      if (!d) {
+        return d;
+      }
+
+      return i(d, method);
+    }, data);
   }
 
   _interceptResponse(method: string, response: Observable<Response>): Observable<Response> {

@@ -54,21 +54,39 @@ describe('Service: HttpInterceptor', () => {
 
   describe('_interceptRequest() method', () => {
     it('should reduce on request interceptors, invoke each and return result', () => {
-      const fn1 = jasmine.createSpy('fn1').and.returnValue(1);
-      const fn2 = jasmine.createSpy('fn2').and.returnValue(2);
-      const fn3 = jasmine.createSpy('fn3').and.returnValue(3);
+      const fn1 = jasmine.createSpy('fn1').and.returnValue(2);
+      const fn2 = jasmine.createSpy('fn2').and.returnValue(3);
+      const fn3 = jasmine.createSpy('fn3').and.returnValue(4);
       const method = 'method';
 
       InterceptableStoreFactoryMock.stores[0].store.push(fn1);
       InterceptableStoreFactoryMock.stores[0].store.push(fn2);
       InterceptableStoreFactoryMock.stores[0].store.push(fn3);
 
-      const res = service._interceptRequest(method, <any>0);
+      const res = service._interceptRequest(method, <any>1);
 
-      expect(fn1).toHaveBeenCalledWith(0, method);
-      expect(fn2).toHaveBeenCalledWith(1, method);
-      expect(fn3).toHaveBeenCalledWith(2, method);
-      expect(res).toBe(3);
+      expect(fn1).toHaveBeenCalledWith(1, method);
+      expect(fn2).toHaveBeenCalledWith(2, method);
+      expect(fn3).toHaveBeenCalledWith(3, method);
+      expect(res).toBe(4);
+    });
+
+    it('should reduce on request interceptors, invoke each until `false` returned and return it', () => {
+      const fn1 = jasmine.createSpy('fn1').and.returnValue(2);
+      const fn2 = jasmine.createSpy('fn2').and.returnValue(false);
+      const fn3 = jasmine.createSpy('fn3').and.returnValue(4);
+      const method = 'method';
+
+      InterceptableStoreFactoryMock.stores[0].store.push(fn1);
+      InterceptableStoreFactoryMock.stores[0].store.push(fn2);
+      InterceptableStoreFactoryMock.stores[0].store.push(fn3);
+
+      const res = service._interceptRequest(method, <any>1);
+
+      expect(fn1).toHaveBeenCalledWith(1, method);
+      expect(fn2).toHaveBeenCalledWith(2, method);
+      expect(fn3).not.toHaveBeenCalled();
+      expect(res).toBe(false);
     });
   });
 
