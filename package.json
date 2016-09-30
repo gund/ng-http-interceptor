@@ -4,7 +4,7 @@
   "scripts": {
     "lint": "tslint src/**/*.ts",
     "test": "npm run lint && ng test --watch=false",
-    "test:report": "cat ./coverage/coverage.lcov | ./node_modules/.bin/coveralls -v",
+    "test:report": "cat ./coverage/coverage.lcov | ./node_modules/coveralls/bin/coveralls.js -v",
     "postinstall": "typings install",
     "prepublish": "npm run build",
     "build": "tsc",
