@@ -4,6 +4,7 @@
   "scripts": {
     "lint": "tslint src/**/*.ts",
     "test": "npm run lint && ng test --watch=false",
+    "test:report": "cat ./coverage/coverage.lcov | ./node_modules/coveralls/bin/coveralls.js -v",
     "postinstall": "typings install",
     "prepublish": "build",
     "build": "tsc",
@@ -40,13 +41,11 @@
     "@angular/platform-browser": "2.0.0",
     "@angular/platform-browser-dynamic": "2.0.0",
     "@angular/router": "3.0.0",
-    "core-js": "^2.4.1",
-    "rxjs": "5.0.0-beta.12",
-    "ts-helpers": "^1.1.1",
-    "zone.js": "^0.6.23",
     "@types/jasmine": "^2.2.30",
     "angular-cli": "1.0.0-beta.16",
     "codelyzer": "~0.0.26",
+    "core-js": "^2.4.1",
+    "coveralls": "^2.11.14",
     "jasmine-core": "2.4.1",
     "jasmine-spec-reporter": "2.5.0",
     "karma": "1.2.0",
@@ -55,10 +54,13 @@
     "karma-jasmine": "^1.0.2",
     "karma-remap-istanbul": "^0.2.1",
     "protractor": "4.0.5",
+    "rxjs": "5.0.0-beta.12",
+    "ts-helpers": "^1.1.1",
     "ts-node": "1.2.1",
     "tslint": "3.13.0",
     "typescript": "2.0.2",
-    "typings": "^1.0.4"
+    "typings": "^1.0.4",
+    "zone.js": "^0.6.23"
   },
   "engines": {
     "node": ">=5.0.0"

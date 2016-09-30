@@ -8,4 +8,9 @@ node_js:
 branches:
 only:
   - master
-script: npm test
+install:
+  - npm install
+script:
+  - npm test
+after_success:
+  - npm run test:report
