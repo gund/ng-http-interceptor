@@ -57,7 +57,7 @@ In this setup every request and response will be logged to the console.
 You can also cancel request by returning `false` value (that coerce to boolean false)
 from one of registered _request_ interceptors.  
 
-You can find in-depth explanation of internal concepts here: https://goo.gl/GU9VWo
+You can find in-depth explanation of internal concepts here: https://goo.gl/GU9VWo  
 Also if you want to play with it check this [repo](https://github.com/gund/angular2-http-interceptor-test).
 
 ## Development
