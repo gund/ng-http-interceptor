@@ -21,6 +21,9 @@ module.exports = function (config) {
       reports: {
         html: 'coverage',
         lcovonly: './coverage/coverage.lcov'
+      },
+      remapOptions: {
+        exclude: /(util|test|polyfills).ts$/
       }
     },
     angularCli: {
