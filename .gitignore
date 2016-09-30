@@ -3,9 +3,7 @@ node_modules/*
 npm-debug.log
 
 # TypeScript
-*.js
-*.map
-dist/**/*.d.ts
+dist
 
 # JetBrains
 .idea
