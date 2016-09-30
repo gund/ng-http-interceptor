@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "scripts": {
     "lint": "tslint src/**/*.ts",
-    "test": "npm run lint && tsc && ng test -- --watch=false",
+    "test": "npm run lint && ng test --watch=false",
     "postinstall": "typings install",
     "prepublish": "tsc",
     "tsc": "tsc",
