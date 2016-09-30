@@ -1,5 +1,5 @@
 # Node
-node_modules/*
+node_modules
 npm-debug.log
 
 # DO NOT IGNORE TYPESCRIPT FILES FOR NPM
@@ -26,3 +26,4 @@ Desktop.ini
 src
 test
 coverage
+typings
