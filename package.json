@@ -5,10 +5,8 @@
     "lint": "tslint src/**/*.ts",
     "test": "npm run lint && ng test --watch=false",
     "test:report": "cat ./coverage/coverage.lcov | ./node_modules/coveralls/bin/coveralls.js -v",
-    "postinstall": "typings install",
     "prepublish": "npm run build",
-    "build": "tsc",
-    "typings": "typings"
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -63,6 +61,6 @@
     "zone.js": "^0.6.23"
   },
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=5.0.0"
   }
 }
