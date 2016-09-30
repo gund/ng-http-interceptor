@@ -55,20 +55,28 @@ constructor(private http: Http, httpInterceptor: HttpInterceptorService) {
 
 In this setup every request and response will be logged to the console.  
 You can also cancel request by returning `false` value (that coerce to boolean false)
-from one of registered _request_ interceptors.
+from one of registered _request_ interceptors.  
+
+You can find in-depth explanation of internal concepts here: https://goo.gl/GU9VWo
 
 ## Development
 
 To generate all `*.js`, `*.js.map` and `*.d.ts` files:
 
 ```bash
-$ npm run tsc
+$ npm run build
 ```
 
 To lint all `*.ts` files:
 
 ```bash
 $ npm run lint
+```
+
+To run unit tests:
+
+```bash
+$ npm test
 ```
 
 ## License
