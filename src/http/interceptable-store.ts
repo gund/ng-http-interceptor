@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Interceptable, Interceptor } from './interceptable';
 
-type AnyInterceptor = Interceptor<any, any>;
+export type AnyInterceptor = Interceptor<any, any>;
 
 @Injectable()
 export class InterceptableStoreFactory {
