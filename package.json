@@ -5,8 +5,8 @@
     "lint": "tslint src/**/*.ts",
     "test": "npm run lint && ng test --watch=false",
     "postinstall": "typings install",
-    "prepublish": "tsc",
-    "tsc": "tsc",
+    "prepublish": "build",
+    "build": "tsc",
     "typings": "typings"
   },
   "repository": {
