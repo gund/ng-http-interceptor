@@ -15,11 +15,11 @@ export class HttpInterceptorService implements HttpInterceptor {
   }
 
   request(url: string|RegExp = DEFAULT_URL_STORE): Interceptable<RequestInterceptor> {
-    return this._requestStore.setActiveStore(String(url));
+    return this._requestStore.setActiveStore(url);
   }
 
   response(url: string|RegExp = DEFAULT_URL_STORE): Interceptable<ResponseInterceptor> {
-    return this._responseStore.setActiveStore(String(url));
+    return this._responseStore.setActiveStore(url);
   }
 
   _interceptRequest(method: string, data: any[]): any[] {

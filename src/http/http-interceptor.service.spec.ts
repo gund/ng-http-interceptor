@@ -64,9 +64,9 @@ describe('Service: HttpInterceptor', () => {
       expect(store.setActiveStore).toHaveBeenCalledWith('/url');
     });
 
-    it('should call setActiveStore() with provided RegExp converted to string', () => {
+    it('should call setActiveStore() with provided RegExp', () => {
       const store = service.request(/\/my-url/);
-      expect(store.setActiveStore).toHaveBeenCalledWith('/\\/my-url/');
+      expect(store.setActiveStore).toHaveBeenCalledWith(/\/my-url/);
     });
   });
 
@@ -85,9 +85,9 @@ describe('Service: HttpInterceptor', () => {
       expect(store.setActiveStore).toHaveBeenCalledWith('/url');
     });
 
-    it('should call setActiveStore() with provided RegExp converted to string', () => {
+    it('should call setActiveStore() with provided RegExp', () => {
       const store = service.response(/\/my-url/);
-      expect(store.setActiveStore).toHaveBeenCalledWith('/\\/my-url/');
+      expect(store.setActiveStore).toHaveBeenCalledWith(/\/my-url/);
     });
   });
 

@@ -54,9 +54,11 @@ export class InterceptableStore<T extends AnyInterceptor> implements Interceptab
   // ----------
   // Internal API
 
-  setActiveStore(url = DEFAULT_URL_STORE): InterceptableStore<T> {
-    this.activeStore = url;
-    this.storeMatcher[url] = new RegExp(url);
+  setActiveStore(url: string|RegExp = DEFAULT_URL_STORE): InterceptableStore<T> {
+    this.activeStore = String(url);
+    if (url instanceof RegExp) {
+      this.storeMatcher[this.activeStore] = url;
+    }
     return this;
   }
 
@@ -65,11 +67,14 @@ export class InterceptableStore<T extends AnyInterceptor> implements Interceptab
   }
 
   getMatchedStores(url = DEFAULT_URL_STORE): T[] {
-    const backedUrl = `/${url.replace('/', '\\/')}/`;
+    const backedUrl = `/${url.replace('/', '\\/')}/`; // Use it for direct string matching
     return Object.keys(this.stores)
-      .filter(k => k === url || k === backedUrl || this.storeMatcher[k].test(url))
+    // Match all stores directly and by RegExp if available
+      .filter(k => k === url || k === backedUrl || (this.storeMatcher[k] && this.storeMatcher[k].test(url)))
+      // Remove duplications and default store
+      .filter((k, i, arr) => k !== DEFAULT_URL_STORE && arr.indexOf(k) === i)
       .map(k => this.getStore(k))
-      .reduce((stores, store) => [...stores, ...store], []);
+      .reduce((stores, store) => [...stores, ...store], this.getStore(DEFAULT_URL_STORE));
   }
 
   private _getStoreSafely(key: string): T[] {
