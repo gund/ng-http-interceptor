@@ -1,6 +1,6 @@
 {
   "name": "ng2-http-interceptor",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "scripts": {
     "build": "tsc",
     "check-coverage": "istanbul check-coverage --functions 75 --lines 75 --branches 75 --statements 75",
