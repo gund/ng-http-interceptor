@@ -20,7 +20,8 @@ module.exports = function (config) {
     remapIstanbulReporter: {
       reports: {
         html: 'coverage',
-        lcovonly: './coverage/coverage.lcov'
+        lcovonly: './coverage/coverage.lcov',
+        json: './coverage/coverage.json'
       },
       remapOptions: {
         exclude: /(util|test|polyfills).ts$/

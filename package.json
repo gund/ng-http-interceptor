@@ -2,12 +2,13 @@
   "name": "ng2-http-interceptor",
   "version": "0.3.0",
   "scripts": {
+    "build": "tsc",
+    "check-coverage": "istanbul check-coverage --functions 75 --lines 75 --branches 75 --statements 75",
     "lint": "tslint src/**/*.ts",
     "test": "ng test",
-    "test:ci": "npm run lint && npm run test -- --watch=false",
+    "test:single": "npm run test -- --watch=false",
     "test:report": "cd coverage && codecov",
-    "prepublish": "npm run build",
-    "build": "tsc"
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
