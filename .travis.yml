@@ -4,8 +4,8 @@ node_js:
   - node
   - "6"
 branches:
-only:
-  - master
+  only:
+    - master
 before_install:
   - export CHROME_BIN=chromium-browser
   - export DISPLAY=:99.0
