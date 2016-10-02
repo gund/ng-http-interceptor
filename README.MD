@@ -4,6 +4,7 @@
 [![Coverage](https://img.shields.io/codecov/c/github/gund/ng2-http-interceptor.svg?maxAge=2592000)](https://codecov.io/gh/gund/ng2-http-interceptor)
 [![Npm](https://img.shields.io/npm/v/ng2-http-interceptor.svg?maxAge=2592000)](https://badge.fury.io/js/ng2-http-interceptor)
 [![Npm Downloads](https://img.shields.io/npm/dt/ng2-http-interceptor.svg?maxAge=2592000)](https://www.npmjs.com/package/ng2-http-interceptor)
+[![Code Climate](https://img.shields.io/codeclimate/github/gund/ng2-http-interceptor.svg?maxAge=2592000)](https://codeclimate.com/github/gund/ng2-http-interceptor)
 [![Licence](https://img.shields.io/npm/l/ng2-http-interceptor.svg?maxAge=2592000)](https://github.com/gund/ng2-http-interceptor/blob/master/LICENSE)
 
 > Http Interceptor library for Angular 2
