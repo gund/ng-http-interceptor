@@ -28,7 +28,7 @@ export class InterceptableHttpProxyService implements ProxyHandler<any> {
 
     const response = this.http[method].apply(this.http, args);
 
-    return this.httpInterceptorService._interceptResponse(method, response);
+    return this.httpInterceptorService._interceptResponse(args[0], method, response);
   }
 }
 

@@ -6,11 +6,11 @@ export type RequestInterceptor = Interceptor<any[], any[]>;
 export type ResponseInterceptor = Interceptor<Observable<Response>, Observable<Response>>;
 
 export interface HttpInterceptor {
-  request(): Interceptable<RequestInterceptor>;
-  response(): Interceptable<ResponseInterceptor>;
+  request(url?: string|RegExp): Interceptable<RequestInterceptor>;
+  response(url?: string|RegExp): Interceptable<ResponseInterceptor>;
 
   /** @private*/
   _interceptRequest(method: string, data: any[]): any[];
   /** @private */
-  _interceptResponse(method: string, response: Observable<Response>): Observable<Response>;
+  _interceptResponse(url: string, method: string, response: Observable<Response>): Observable<Response>;
 }
