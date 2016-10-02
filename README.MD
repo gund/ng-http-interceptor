@@ -1,8 +1,10 @@
 # ng2-http-interceptor
 
-[![Build Status][travis-badge]][travis-badge-url]
-[![Coverage Status][codecov-badge]][codecov-badge-url]
-[![Npm][npm-badge]][npm-badge-url]
+[![Travis CI](https://img.shields.io/travis/gund/ng2-http-interceptor/master.svg?maxAge=2592000)](https://travis-ci.org/gund/ng2-http-interceptor)
+[![Coverage](https://img.shields.io/codecov/c/github/gund/ng2-http-interceptor.svg?maxAge=2592000)](https://codecov.io/gh/gund/ng2-http-interceptor)
+[![Npm](https://img.shields.io/npm/v/ng2-http-interceptor.svg?maxAge=2592000)](https://badge.fury.io/js/ng2-http-interceptor)
+[![Npm Downloads](https://img.shields.io/npm/dt/ng2-http-interceptor.svg?maxAge=2592000)](https://www.npmjs.com/package/ng2-http-interceptor)
+[![Licence](https://img.shields.io/npm/l/ng2-http-interceptor.svg?maxAge=2592000)](https://github.com/gund/ng2-http-interceptor/blob/master/LICENSE)
 
 > Http Interceptor library for Angular 2
 
@@ -159,11 +161,3 @@ $ npm test
 ## License
 
 MIT © [Alex Malkevich](malkevich.alex@gmail.com)
-
-
-[travis-badge]: https://travis-ci.org/gund/ng2-http-interceptor.svg?branch=master
-[travis-badge-url]: https://travis-ci.org/gund/ng2-http-interceptor
-[codecov-badge]: https://codecov.io/gh/gund/ng2-http-interceptor/branch/master/graph/badge.svg
-[codecov-badge-url]: https://codecov.io/gh/gund/ng2-http-interceptor
-[npm-badge]: https://badge.fury.io/js/ng2-http-interceptor.svg
-[npm-badge-url]: https://badge.fury.io/js/ng2-http-interceptor
