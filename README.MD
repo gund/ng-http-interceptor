@@ -120,11 +120,11 @@ export interface Interceptor {
 
 _Description_: This is generic type of interceptor - which is a plain old JavaScript function.  
 You will be dealing with specific one to satisfy it's criteria:
-* `Interceptor<any[], any[]>` - for **request** interceptors
+* `Interceptor<any[], any[]>` - for **request** interceptors  
     Function will get an array of parameters with which call on `Http`
     was made + method name as string (`get`, `post`, `delete`...)
     and should return array of the same structure or `false` to cancel request.
-* `Interceptor<Observable<Response>, Observable<Response>>` - for **response** interceptors
+* `Interceptor<Observable<Response>, Observable<Response>>` - for **response** interceptors  
     Function will get Observable + method name as string (`get`, `post`, `delete`...)
     and should return same or new Observable but with type Response
     (this is made specifically to prevent other code being broken
