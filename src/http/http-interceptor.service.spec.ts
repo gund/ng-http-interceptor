@@ -101,7 +101,7 @@ describe('Service: HttpInterceptor', () => {
 
       store.getMatchedStores.and.returnValue([fn1, fn2, fn3]);
 
-      const res = service._interceptRequest(method, ['/url']);
+      const res = service._interceptRequest('/url', method, ['/url']);
 
       expect(store.getMatchedStores).toHaveBeenCalledWith('/url');
       expect(fn1).toHaveBeenCalledWith(['/url'], method);
@@ -119,7 +119,7 @@ describe('Service: HttpInterceptor', () => {
 
       store.getMatchedStores.and.returnValue([fn1, fn2, fn3]);
 
-      const res = service._interceptRequest(method, ['/url']);
+      const res = service._interceptRequest('/url', method, ['/url']);
 
       expect(store.getMatchedStores).toHaveBeenCalledWith('/url');
       expect(fn1).toHaveBeenCalledWith(['/url'], method);

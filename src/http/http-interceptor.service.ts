@@ -22,8 +22,8 @@ export class HttpInterceptorService implements HttpInterceptor {
     return this._responseStore.setActiveStore(url);
   }
 
-  _interceptRequest(method: string, data: any[]): any[] {
-    return this._requestStore.getMatchedStores(data[0]).reduce((d, i) => {
+  _interceptRequest(url: string, method: string, data: any[]): any[] {
+    return this._requestStore.getMatchedStores(url).reduce((d, i) => {
       if (!d) {
         return d;
       }

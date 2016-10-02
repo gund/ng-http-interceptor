@@ -44,7 +44,7 @@ describe('Service: InterceptableHttpProxy', () => {
       service.get(null, 'testMethod', null);
       const res = service.apply(null, null, ['url']);
 
-      expect(HttpInterceptorServiceMock._interceptRequest).toHaveBeenCalledWith('testMethod', ['url']);
+      expect(HttpInterceptorServiceMock._interceptRequest).toHaveBeenCalledWith('url', 'testMethod', ['url']);
       expect(HttpMock.testMethod).toHaveBeenCalledWith('url modified');
       expect(HttpInterceptorServiceMock._interceptResponse).toHaveBeenCalledWith('url modified', 'testMethod', 'response');
       expect(res).toBe('response modified');
@@ -56,9 +56,18 @@ describe('Service: InterceptableHttpProxy', () => {
       service.get(null, 'testMethod', null);
       const res = service.apply(null, null, ['url']);
 
-      expect(HttpInterceptorServiceMock._interceptRequest).toHaveBeenCalledWith('testMethod', ['url']);
+      expect(HttpInterceptorServiceMock._interceptRequest).toHaveBeenCalledWith('url', 'testMethod', ['url']);
       expect(HttpMock.testMethod).not.toHaveBeenCalled();
       expect(res).toEqual(Observable.empty());
+    });
+
+    it('should call _interceptRequest() with Request and correctly extract url', () => {
+      HttpInterceptorServiceMock._interceptRequest.and.returnValue(false);
+
+      service.get(null, 'testMethod', null);
+      service.apply(null, null, [{url: 'url'}]);
+
+      expect(HttpInterceptorServiceMock._interceptRequest).toHaveBeenCalledWith('url', 'testMethod', [{url: 'url'}]);
     });
   });
 });

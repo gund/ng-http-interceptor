@@ -10,7 +10,7 @@ export interface HttpInterceptor {
   response(url?: string|RegExp): Interceptable<ResponseInterceptor>;
 
   /** @private*/
-  _interceptRequest(method: string, data: any[]): any[];
+  _interceptRequest(url: string, method: string, data: any[]): any[];
   /** @private */
   _interceptResponse(url: string, method: string, response: Observable<Response>): Observable<Response>;
 }
