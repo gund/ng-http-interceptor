@@ -52,6 +52,7 @@
     "karma-cli": "^1.0.1",
     "karma-jasmine": "^1.0.2",
     "karma-remap-istanbul": "^0.2.1",
+    "proxy-polyfill": "^0.1.6",
     "protractor": "4.0.5",
     "rxjs": "5.0.0-beta.12",
     "ts-helpers": "^1.1.1",
