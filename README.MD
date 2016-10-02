@@ -8,10 +8,16 @@
 
 ## Table of Contents
 
+* [Prerequisites](#prerequisites)
 * [Installation](#installation)
 * [Usage](#usage)
 * [Documentation](#documentation)
 * [Development](#development)
+
+## Prerequisites
+
+This library uses `Proxy` from ES6 spec so if you need to support browsers
+that are ES5 compatible include [proxy-polyfill](https://github.com/GoogleChrome/proxy-polyfill).
 
 ## Installation
 
