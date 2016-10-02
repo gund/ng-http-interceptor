@@ -7,15 +7,22 @@ export type AnyInterceptor = Interceptor<any, any>;
 export class InterceptableStoreFactory {
 
   // noinspection JSMethodCanBeStatic
-  createStore<D extends AnyInterceptor>(store: D[]) {
-    return new InterceptableStore<D>(store);
+  createStore<D extends AnyInterceptor>() {
+    return new InterceptableStore<D>();
   }
 
 }
 
+export const DEFAULT_URL_STORE = '/';
+
 export class InterceptableStore<T extends AnyInterceptor> implements Interceptable<T> {
 
-  constructor(private store: T[] = []) {
+  private storeMatcher: {[url: string]: RegExp} = {};
+  private stores: {[url: string]: T[]} = {};
+  private activeStore: string = DEFAULT_URL_STORE;
+
+  private get store(): T[] {
+    return this._getStoreSafely(this.activeStore);
   }
 
   addInterceptor(interceptor: T): Interceptable<T> {
@@ -42,6 +49,36 @@ export class InterceptableStore<T extends AnyInterceptor> implements Interceptab
     }
 
     return this;
+  }
+
+  // ----------
+  // Internal API
+
+  setActiveStore(url: string|RegExp = DEFAULT_URL_STORE): InterceptableStore<T> {
+    this.activeStore = String(url);
+    if (url instanceof RegExp) {
+      this.storeMatcher[this.activeStore] = url;
+    }
+    return this;
+  }
+
+  getStore(key = DEFAULT_URL_STORE): T[] {
+    return this._getStoreSafely(key);
+  }
+
+  getMatchedStores(url = DEFAULT_URL_STORE): T[] {
+    const backedUrl = `/${url.replace('/', '\\/')}/`; // Use it for direct string matching
+    return Object.keys(this.stores)
+    // Match all stores directly and by RegExp if available
+      .filter(k => k === url || k === backedUrl || (this.storeMatcher[k] && this.storeMatcher[k].test(url)))
+      // Remove duplications and default store
+      .filter((k, i, arr) => k !== DEFAULT_URL_STORE && arr.indexOf(k) === i)
+      .map(k => this.getStore(k))
+      .reduce((stores, store) => [...stores, ...store], this.getStore(DEFAULT_URL_STORE));
+  }
+
+  private _getStoreSafely(key: string): T[] {
+    return (this.stores[key] || (this.stores[key] = []));
   }
 
 }

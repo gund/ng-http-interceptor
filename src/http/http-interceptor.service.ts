@@ -1,33 +1,29 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, RequestInterceptor, ResponseInterceptor } from './http-interceptor';
 import { Interceptable } from './interceptable';
-import { InterceptableStoreFactory } from './interceptable-store';
+import { InterceptableStoreFactory, DEFAULT_URL_STORE } from './interceptable-store';
 import { Observable } from 'rxjs';
 import { Response } from '@angular/http';
 
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
 
-  private _requestInterceptors: RequestInterceptor[] = [];
-  private _responseInterceptors: ResponseInterceptor[] = [];
-  private _requestStore;
-  private _responseStore;
+  private _requestStore = this.store.createStore<RequestInterceptor>();
+  private _responseStore = this.store.createStore<ResponseInterceptor>();
 
-  constructor(store: InterceptableStoreFactory) {
-    this._requestStore = store.createStore<RequestInterceptor>(this._requestInterceptors);
-    this._responseStore = store.createStore<ResponseInterceptor>(this._responseInterceptors);
+  constructor(private store: InterceptableStoreFactory) {
   }
 
-  request(): Interceptable<RequestInterceptor> {
-    return this._requestStore;
+  request(url: string|RegExp = DEFAULT_URL_STORE): Interceptable<RequestInterceptor> {
+    return this._requestStore.setActiveStore(url);
   }
 
-  response(): Interceptable<ResponseInterceptor> {
-    return this._responseStore;
+  response(url: string|RegExp = DEFAULT_URL_STORE): Interceptable<ResponseInterceptor> {
+    return this._responseStore.setActiveStore(url);
   }
 
-  _interceptRequest(method: string, data: any[]): any[] {
-    return this._requestInterceptors.reduce((d, i) => {
+  _interceptRequest(url: string, method: string, data: any[]): any[] {
+    return this._requestStore.getMatchedStores(url).reduce((d, i) => {
       if (!d) {
         return d;
       }
@@ -36,8 +32,9 @@ export class HttpInterceptorService implements HttpInterceptor {
     }, data);
   }
 
-  _interceptResponse(method: string, response: Observable<Response>): Observable<Response> {
-    return this._responseInterceptors.reduce((o, i) => o.flatMap(_ => i(o, method)), response);
+  _interceptResponse(url: string, method: string, response: Observable<Response>): Observable<Response> {
+    return this._responseStore.getMatchedStores(url)
+      .reduce((o, i) => o.flatMap(_ => i(o, method)), response);
   }
 
 }
