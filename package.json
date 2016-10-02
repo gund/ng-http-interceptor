@@ -1,11 +1,11 @@
 {
   "name": "ng2-http-interceptor",
-  "version": "0.2.13",
+  "version": "0.2.14",
   "scripts": {
     "lint": "tslint src/**/*.ts",
     "test": "ng test",
     "test:ci": "npm run lint && npm run test -- --watch=false",
-    "test:report": "cat ./coverage/coverage.lcov | ./node_modules/coveralls/bin/coveralls.js -v",
+    "test:report": "cd coverage && codecov",
     "prepublish": "npm run build",
     "build": "tsc"
   },
@@ -42,9 +42,9 @@
     "@angular/router": "3.0.0",
     "@types/jasmine": "^2.2.30",
     "angular-cli": "1.0.0-beta.16",
+    "codecov": "^1.0.1",
     "codelyzer": "~0.0.26",
     "core-js": "^2.4.1",
-    "coveralls": "^2.11.14",
     "jasmine-core": "2.4.1",
     "jasmine-spec-reporter": "2.5.0",
     "karma": "1.2.0",
