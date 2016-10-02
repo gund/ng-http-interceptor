@@ -1,4 +1,4 @@
-# ng2-http-interceptor [![Build Status](https://travis-ci.org/gund/ng2-http-interceptor.svg?branch=master)](https://travis-ci.org/gund/ng2-http-interceptor) [![Coverage Status](https://coveralls.io/repos/github/gund/ng2-http-interceptor/badge.svg?branch=master)](https://coveralls.io/github/gund/ng2-http-interceptor?branch=master) [![npm version](https://badge.fury.io/js/ng2-http-interceptor.svg)](https://badge.fury.io/js/ng2-http-interceptor)
+# ng2-http-interceptor [![Build Status](https://travis-ci.org/gund/ng2-http-interceptor.svg?branch=master)](https://travis-ci.org/gund/ng2-http-interceptor) [![codecov](https://codecov.io/gh/gund/ng2-http-interceptor/branch/master/graph/badge.svg)](https://codecov.io/gh/gund/ng2-http-interceptor) [![npm version](https://badge.fury.io/js/ng2-http-interceptor.svg)](https://badge.fury.io/js/ng2-http-interceptor)
 
 > Http Interceptor library for Angular 2
 
