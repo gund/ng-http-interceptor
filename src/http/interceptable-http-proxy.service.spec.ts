@@ -1,8 +1,10 @@
-/* tslint:disable:no-unused-variable */
-
 import { TestBed, inject } from '@angular/core/testing';
-import { InterceptableHttpProxyService } from './interceptable-http-proxy.service';
-import { HttpModule, Http } from '@angular/http';
+import {
+  InterceptableHttpProxyService,
+  InterceptableHttpProxyProviders,
+  InterceptableHttpProxyNoOverrideProviders
+} from './interceptable-http-proxy.service';
+import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
 import { HttpInterceptorService } from './http-interceptor.service';
 import { Observable } from 'rxjs';
 
@@ -68,6 +70,30 @@ describe('Service: InterceptableHttpProxy', () => {
       service.apply(null, null, [{url: 'url'}]);
 
       expect(HttpInterceptorServiceMock._interceptRequest).toHaveBeenCalledWith('url', 'testMethod', [{url: 'url'}]);
+    });
+  });
+});
+
+describe('Provider factory', () => {
+  beforeEach(() => spyOn(window, 'Proxy').and.returnValue(() => 'proxy'));
+
+  describe('InterceptableHttpProxyProviders', () => {
+    const factory: (backend, options, interceptor) => any = (<any>InterceptableHttpProxyProviders[0]).useFactory;
+
+    it('should wrap HttpInterceptorService into Proxy and return it', () => {
+      const proxy = factory(XHRBackend, RequestOptions, {});
+      expect(proxy).toEqual(jasmine.any(Function));
+      expect(proxy()).toBe('proxy');
+    });
+  });
+
+  describe('InterceptableHttpProxyNoOverrideProviders', () => {
+    const factory: (http, interceptor) => any = (<any>InterceptableHttpProxyNoOverrideProviders[0]).useFactory;
+
+    it('should wrap HttpInterceptorService into Proxy and return it', () => {
+      const proxy = factory(Http, {});
+      expect(proxy).toEqual(jasmine.any(Function));
+      expect(proxy()).toBe('proxy');
     });
   });
 });
