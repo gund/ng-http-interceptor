@@ -1,5 +1,10 @@
-language: node_js
 sudo: false
+language: node_js
+cache:
+  directories:
+    - node_modules
+notifications:
+  email: false
 node_js:
   - node
   - "6"
@@ -12,9 +17,13 @@ before_install:
   - sh -e /etc/init.d/xvfb start
 install:
   - npm install
+before_script:
+  - npm prune
 script:
-  - npm run lint
-  - npm run test:single
-  - npm run check-coverage
+  - npm run ci
 after_success:
+  - 'curl -Lo travis_after_all.py https://git.io/travis_after_all'
+  - python travis_after_all.py
+  - export $(cat .to_export_back) &> /dev/null
+  - npm run semantic-release
   - npm run test:report
