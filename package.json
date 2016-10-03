@@ -74,7 +74,7 @@
   },
   "config": {
     "ghooks": {
-      "pre-commit": "npm run ci"
+      "pre-commit": "echo \"Verifying commit...\" && npm run ci"
     },
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
