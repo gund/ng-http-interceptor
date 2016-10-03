@@ -27,4 +27,3 @@ src
 test
 coverage
 typings
-.coveralls.yml
