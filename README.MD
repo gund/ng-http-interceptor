@@ -10,8 +10,22 @@
 
 > Http Interceptor library for Angular 2
 
+## Features
+
+* Registering interceptors globally
+* Separate interceptors for requests and responses
+* Attach interceptors for specific urls via strings or RegExp's
+* Remove specific/all interceptor(s)
+* Modify requests (even url) from request interceptors
+* Cancel requests from request interceptors
+* Modify responses from response interceptors
+* Interceptor Service is not coupled with Http Service
+* Choose between overriding original Http Service or keep it and still use interceptors
+* Comprehensive type assistance for your interceptor functions
+
 ## Table of Contents
 
+* [Features](#features)
 * [Prerequisites](#prerequisites)
 * [Installation](#installation)
 * [Usage](#usage)
