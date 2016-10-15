@@ -19,9 +19,6 @@ import 'core-js/es7/reflect';
 import 'zone.js/dist/zone';
 
 // Proxy stub
-console.log('Proxy', Proxy);
 if (!('Proxy' in window)) {
-  console.log('No proxy! Patching...');
   window['Proxy'] = {};
-  console.log('Proxy', Proxy);
 }
