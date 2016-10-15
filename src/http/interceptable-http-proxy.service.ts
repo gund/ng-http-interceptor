@@ -3,7 +3,7 @@ import { Http, XHRBackend, RequestOptions } from '@angular/http';
 import { HttpInterceptorService } from './http-interceptor.service';
 import { Observable } from 'rxjs';
 import { identityFactory } from './util';
-import { isObject } from 'util';
+import { isObject, inspect } from 'util';
 
 @Injectable()
 export class InterceptableHttpProxyService implements ProxyHandler<any> {
@@ -42,8 +42,14 @@ export class InterceptableHttpProxyService implements ProxyHandler<any> {
 export const InterceptableHttpProxyProviders = [
   {
     provide: Http,
-    useFactory: (backend, options, interceptor) =>
-      new Proxy(() => null, new InterceptableHttpProxyService(new Http(backend, options), interceptor)),
+    useFactory: (backend, options, interceptor) => {
+      console.log('Proxy', typeof Proxy, inspect(Proxy, true));
+      console.log('Http', typeof Http, inspect(Http, true));
+      console.log('XHRBackend', typeof backend, inspect(backend, true));
+      console.log('RequestOptions', typeof options, inspect(options, true));
+      console.log('HttpInterceptorService', typeof interceptor, inspect(interceptor, true));
+      return new Proxy(() => null, new InterceptableHttpProxyService(new Http(backend, options), interceptor));
+    },
     deps: [XHRBackend, RequestOptions, HttpInterceptorService]
   },
   identityFactory(InterceptableHttpProxyService, Http)
