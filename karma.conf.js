@@ -49,7 +49,7 @@ module.exports = function (config) {
     // browser for travis-ci
     customLaunchers: {
       Chrome_travis_ci: {
-        base: 'ChromeCanary',
+        base: 'Chrome',
         flags: ['--no-sandbox', harmony_flags]
       }
     }
