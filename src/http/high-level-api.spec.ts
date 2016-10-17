@@ -3,6 +3,7 @@ import { HttpInterceptorService } from './http-interceptor.service';
 import { XHRBackend, HttpModule, Http, Response, ResponseOptions } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { HTTP_INTERCEPTOR_PROVIDER } from './providers';
+import { Observable } from 'rxjs';
 
 describe('High-level API', () => {
   let httpInterceptor: HttpInterceptorService;
@@ -86,13 +87,16 @@ describe('High-level API', () => {
     });
 
     it('should intercept response on HTTP error', () => {
+      interceptor.and.callFake(() => Observable.of('fixed error'));
+      const errorCallback = jasmine.createSpy('errorCallback').and.returnValue(Observable.empty());
       const callback = jasmine.createSpy('callback');
-      mockBackend.connections.subscribe(conn => conn.mockRespond(responseBody('mocked', 404)));
+      mockBackend.connections.subscribe(conn => conn.mockError(Error('error')));
 
-      http.get('/url').subscribe(callback);
+      http.get('/url').catch(errorCallback).subscribe(callback);
 
       expect(interceptor).toHaveBeenCalled();
-      expect(callback).toHaveBeenCalledWith('changed');
+      expect(errorCallback).not.toHaveBeenCalled();
+      expect(callback).toHaveBeenCalledWith('fixed error');
     });
   });
 
