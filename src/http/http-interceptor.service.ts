@@ -33,8 +33,7 @@ export class HttpInterceptorService implements HttpInterceptor {
   }
 
   _interceptResponse(url: string, method: string, response: Observable<Response>): Observable<Response> {
-    return this._responseStore.getMatchedStores(url)
-      .reduce((o, i) => o.flatMap(_ => i(o, method)), response);
+    return this._responseStore.getMatchedStores(url).reduce((o, i) => i(o, method), response);
   }
 
 }

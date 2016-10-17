@@ -136,15 +136,14 @@ describe('Service: HttpInterceptor', () => {
       observableMock = <any>{}; // Init
 
       observableMock.flatMap = jasmine.createSpy('Observable.flatMap')
-        .and.returnValue(observableMock)
-        .and.callFake(fn => fn()); // Invoke callbacks synchronously
+        .and.returnValue(observableMock);
     });
 
     it('should reduce on response interceptors, invoke flatMap() on each and return result', () => {
       const store = InterceptableStoreFactoryMock.stores[1];
       const fn1 = jasmine.createSpy('fn1').and.returnValue(observableMock);
       const fn2 = jasmine.createSpy('fn2').and.returnValue(observableMock);
-      const fn3 = jasmine.createSpy('fn3').and.returnValue(observableMock);
+      const fn3 = jasmine.createSpy('fn3').and.returnValue('changed observable');
       const method = 'method';
 
       store.getMatchedStores.and.returnValue([fn1, fn2, fn3]);
@@ -155,7 +154,7 @@ describe('Service: HttpInterceptor', () => {
       expect(fn1).toHaveBeenCalledWith(observableMock, method);
       expect(fn2).toHaveBeenCalledWith(observableMock, method);
       expect(fn3).toHaveBeenCalledWith(observableMock, method);
-      expect(res).toBe(observableMock);
+      expect(res).toBe('changed observable');
     });
   });
 });
