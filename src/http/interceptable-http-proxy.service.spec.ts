@@ -1,4 +1,4 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed, inject, async } from '@angular/core/testing';
 import {
   InterceptableHttpProxyService,
   InterceptableHttpProxyProviders,
@@ -38,18 +38,21 @@ describe('Service: InterceptableHttpProxy', () => {
   });
 
   describe('apply() method', () => {
-    it('should call _interceptRequest() on service and method on Http and _interceptResponse on service', () => {
-      HttpMock.testMethod.and.returnValue('response');
-      HttpInterceptorServiceMock._interceptRequest.and.returnValue(['url modified']);
-      HttpInterceptorServiceMock._interceptResponse.and.returnValue('response modified');
+    let observable: Observable<any>;
 
+    beforeEach(() => {
+      observable = Observable.of('response');
+      HttpMock.testMethod.and.returnValue(observable);
+      HttpInterceptorServiceMock._interceptRequest.and.returnValue(['url modified']);
+      HttpInterceptorServiceMock._interceptResponse.and.returnValue(Observable.of('modified response'));
+    });
+
+    it('should call _interceptRequest() on service and method on Http', () => {
       service.get(null, 'testMethod', null);
-      const res = service.apply(null, null, ['url']);
+      service.apply(null, null, ['url']);
 
       expect(HttpInterceptorServiceMock._interceptRequest).toHaveBeenCalledWith('url', 'testMethod', ['url']);
       expect(HttpMock.testMethod).toHaveBeenCalledWith('url modified');
-      expect(HttpInterceptorServiceMock._interceptResponse).toHaveBeenCalledWith('url modified', 'testMethod', 'response');
-      expect(res).toBe('response modified');
     });
 
     it('should call _interceptRequest() and cancel request if it returns false and return empty observable', () => {
@@ -71,6 +74,42 @@ describe('Service: InterceptableHttpProxy', () => {
 
       expect(HttpInterceptorServiceMock._interceptRequest).toHaveBeenCalledWith('url', 'testMethod', [{url: 'url'}]);
     });
+
+    it('should call .flatMap() on success, call _interceptRequest() inside and return result', () => {
+      const callback = jasmine.createSpy('callback');
+      spyOn(observable, 'flatMap').and.callThrough();
+
+      service.get(null, 'testMethod', null);
+      const res = service.apply(null, null, ['url']);
+
+      expect(res).toEqual(jasmine.any(Observable));
+
+      res.subscribe(callback);
+
+      expect(observable.flatMap).toHaveBeenCalledWith(jasmine.any(Function)); // Normal branch!
+      expect(HttpInterceptorServiceMock._interceptResponse).toHaveBeenCalledWith('url modified', 'testMethod', observable);
+      expect(callback).toHaveBeenCalledWith('modified response');
+    });
+
+    it('should call .catch() on error, call _interceptRequest() inside and return result', async(() => {
+      observable = Observable.throw('error');
+      HttpMock.testMethod.and.returnValue(observable);
+
+      const callback = jasmine.createSpy('callback');
+      spyOn(observable, 'flatMap').and.returnValue(observable); // <-- Need this hack to make next call on .catch()
+      spyOn(observable, 'catch').and.callThrough();
+
+      service.get(null, 'testMethod', null);
+      const res = service.apply(null, null, ['url']);
+
+      expect(res).toEqual(jasmine.any(Observable));
+
+      res.subscribe(callback);
+
+      expect(observable.catch).toHaveBeenCalledWith(jasmine.any(Function)); // Catch branch!
+      expect(HttpInterceptorServiceMock._interceptResponse).toHaveBeenCalledWith('url modified', 'testMethod', observable);
+      expect(callback).toHaveBeenCalledWith('modified response');
+    }));
   });
 });
 

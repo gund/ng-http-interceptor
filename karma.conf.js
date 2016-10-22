@@ -2,6 +2,13 @@
 // https://karma-runner.github.io/0.13/config/configuration-file.html
 
 module.exports = function (config) {
+  var harmony_flags = '--js-flags="' + [
+      '--harmony-arrow-functions',
+      '--harmony-classes',
+      '--harmony-computed-property-names',
+      '--harmony-spreadcalls',
+    ].join(' ') + '"';
+
   var configuration = {
     basePath: '',
     frameworks: ['jasmine', 'angular-cli'],
@@ -43,7 +50,7 @@ module.exports = function (config) {
     customLaunchers: {
       Chrome_travis_ci: {
         base: 'Chrome',
-        flags: ['--no-sandbox']
+        flags: ['--no-sandbox', harmony_flags]
       }
     }
   };
