@@ -83,6 +83,11 @@ describe('High-level API', () => {
 
       mockBackend.connections.subscribe(connCallback);
 
+      interceptor.and.callFake(o => {
+        o.subscribe(() => null);
+        return o.map(() => 'changed');
+      });
+
       http.get('/url').subscribe(callback);
 
       expect(interceptor).toHaveBeenCalled();
