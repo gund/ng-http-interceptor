@@ -63,7 +63,7 @@
     "rxjs": "5.0.0-beta.12",
     "semantic-release": "^4.3.5",
     "ts-helpers": "^1.1.2",
-    "ts-node": "1.6.1",
+    "ts-node": "1.7.0",
     "tslint": "3.15.1",
     "typescript": "2.0.7",
     "typings": "^1.5.0",
