@@ -4,8 +4,7 @@ import { XHRBackend, HttpModule, Http, Response, ResponseOptions } from '@angula
 import { MockBackend } from '@angular/http/testing';
 import { HTTP_INTERCEPTOR_PROVIDER } from './providers';
 import { Observable } from 'rxjs';
-
-declare let Zone;
+import { getContextFromCurrentZone } from './util';
 
 describe('High-level API', () => {
   let httpInterceptor: HttpInterceptorService;
@@ -75,12 +74,17 @@ describe('High-level API', () => {
 
     it('should be able to share data between interceptors', async(() => {
       interceptor.and.callFake(d => {
-        Zone.current.get('context')['testkey'] = 'test';
+        let context = getContextFromCurrentZone();
+        if (context) {
+          context['testkey'] = 'test';
+        }
         return d;
       });
       const interceptor1 = jasmine.createSpy('interceptor1');
       interceptor1.and.callFake(d => {
-        expect(Zone.current.get('context')['testkey']).toBe('test');
+        let context = getContextFromCurrentZone();
+        expect(context).not.toBeNull();
+        expect(context['testkey']).toBe('test');
         return d;
       });
       httpInterceptor.request().addInterceptor(interceptor1);
