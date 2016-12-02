@@ -6,6 +6,6 @@ export const identityFactory = (provide, obj) => ({
   deps: [obj]
 });
 
-export function getContextFromCurrentZone() {
+export function getContext() {
   return Zone.current.getZoneWith('context').get('context');
 };
