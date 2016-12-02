@@ -7,9 +7,5 @@ export const identityFactory = (provide, obj) => ({
 });
 
 export function getContextFromCurrentZone() {
-  let zone = Zone.current.getZoneWith('context');
-  if (zone) {
-    return zone.get('context');
-  }
-  return null;
+  return Zone.current.getZoneWith('context').get('context');
 };
