@@ -11,25 +11,31 @@ export class HttpInterceptorService implements HttpInterceptor {
   private _requestStore = this.store.createStore<RequestInterceptor>();
   private _responseStore = this.store.createStore<ResponseInterceptor>();
 
+  private static wrapInObservable(res): Observable<any> {
+    return res instanceof Observable ? res : Observable.of(res);
+  }
+
   constructor(private store: InterceptableStoreFactory) {
   }
 
-  request(url: string|RegExp = DEFAULT_URL_STORE): Interceptable<RequestInterceptor> {
+  request(url: string | RegExp = DEFAULT_URL_STORE): Interceptable<RequestInterceptor> {
     return this._requestStore.setActiveStore(url);
   }
 
-  response(url: string|RegExp = DEFAULT_URL_STORE): Interceptable<ResponseInterceptor> {
+  response(url: string | RegExp = DEFAULT_URL_STORE): Interceptable<ResponseInterceptor> {
     return this._responseStore.setActiveStore(url);
   }
 
-  _interceptRequest(url: string, method: string, data: any[]): any[] {
-    return this._requestStore.getMatchedStores(url).reduce((d, i) => {
-      if (!d) {
-        return d;
-      }
-
-      return i(d, method);
-    }, data);
+  _interceptRequest(url: string, method: string, data: any[]): Observable<any[]> {
+    return this._requestStore.getMatchedStores(url).reduce(
+      (o, i) => o.flatMap(d => {
+        if (!d) {
+          return Observable.of(d);
+        }
+        return HttpInterceptorService.wrapInObservable(i(d, method));
+      }),
+      Observable.of(data)
+    );
   }
 
   _interceptResponse(url: string, method: string, response: Observable<Response>): Observable<Response> {

@@ -1,6 +1,6 @@
 /* tslint:disable:no-unused-variable */
 
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed, inject, async } from '@angular/core/testing';
 import { HttpInterceptorService } from './http-interceptor.service';
 import { InterceptableStoreFactory, DEFAULT_URL_STORE } from './interceptable-store';
 import Spy = jasmine.Spy;
@@ -17,7 +17,7 @@ describe('Service: HttpInterceptor', () => {
     static stores: InterceptableStoreMock[] = [];
 
     createStore(): any {
-      const s: InterceptableStoreMock = {setActiveStore: null, getMatchedStores: null, __isMock: true};
+      const s: InterceptableStoreMock = { setActiveStore: null, getMatchedStores: null, __isMock: true };
 
       s.setActiveStore = jasmine.createSpy('setActiveStore').and.returnValue(s);
       s.getMatchedStores = jasmine.createSpy('getMatchedStores');
@@ -27,12 +27,12 @@ describe('Service: HttpInterceptor', () => {
     }
   }
 
-  let service: {request: InterceptableStoreMockFn, response: InterceptableStoreMockFn} & HttpInterceptorService;
+  let service: { request: InterceptableStoreMockFn, response: InterceptableStoreMockFn } & HttpInterceptorService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        {provide: InterceptableStoreFactory, useClass: InterceptableStoreFactoryMock},
+        { provide: InterceptableStoreFactory, useClass: InterceptableStoreFactoryMock },
         HttpInterceptorService
       ]
     });
@@ -51,7 +51,7 @@ describe('Service: HttpInterceptor', () => {
 
   describe('request() method', () => {
     it('should return `Interceptable` instance', () => {
-      expect(service.request()).toEqual(jasmine.objectContaining({__isMock: true}));
+      expect(service.request()).toEqual(jasmine.objectContaining({ __isMock: true }));
     });
 
     it('should call setActiveStore() with default url', () => {
@@ -72,7 +72,7 @@ describe('Service: HttpInterceptor', () => {
 
   describe('response() method', () => {
     it('should return `Interceptable` instance', () => {
-      expect(service.response()).toEqual(jasmine.objectContaining({__isMock: true}));
+      expect(service.response()).toEqual(jasmine.objectContaining({ __isMock: true }));
     });
 
     it('should call setActiveStore() with default url', () => {
@@ -92,7 +92,7 @@ describe('Service: HttpInterceptor', () => {
   });
 
   describe('_interceptRequest() method', () => {
-    it('should reduce on request interceptors, invoke each and return result', () => {
+    it('should reduce on request interceptors, invoke each and return result', async(() => {
       const store = InterceptableStoreFactoryMock.stores[0];
       const fn1 = jasmine.createSpy('fn1').and.returnValue(['/url1']);
       const fn2 = jasmine.createSpy('fn2').and.returnValue(['/url2']);
@@ -101,16 +101,17 @@ describe('Service: HttpInterceptor', () => {
 
       store.getMatchedStores.and.returnValue([fn1, fn2, fn3]);
 
-      const res = service._interceptRequest('/url', method, ['/url']);
+      let res;
+      service._interceptRequest('/url', method, ['/url']).subscribe(r => res = r);
 
       expect(store.getMatchedStores).toHaveBeenCalledWith('/url');
       expect(fn1).toHaveBeenCalledWith(['/url'], method);
       expect(fn2).toHaveBeenCalledWith(['/url1'], method);
       expect(fn3).toHaveBeenCalledWith(['/url2'], method);
       expect(res).toEqual(['/url3']);
-    });
+    }));
 
-    it('should reduce on request interceptors, invoke each until `false` returned and return it', () => {
+    it('should reduce on request interceptors, invoke each until `false` returned and return it', async(() => {
       const store = InterceptableStoreFactoryMock.stores[0];
       const fn1 = jasmine.createSpy('fn1').and.returnValue(['/url1']);
       const fn2 = jasmine.createSpy('fn2').and.returnValue(false);
@@ -119,18 +120,19 @@ describe('Service: HttpInterceptor', () => {
 
       store.getMatchedStores.and.returnValue([fn1, fn2, fn3]);
 
-      const res = service._interceptRequest('/url', method, ['/url']);
+      let res;
+      service._interceptRequest('/url', method, ['/url']).subscribe(r => res = r);
 
       expect(store.getMatchedStores).toHaveBeenCalledWith('/url');
       expect(fn1).toHaveBeenCalledWith(['/url'], method);
       expect(fn2).toHaveBeenCalledWith(['/url1'], method);
       expect(fn3).not.toHaveBeenCalled();
       expect(res).toBeFalsy();
-    });
+    }));
   });
 
   describe('_interceptResponse() method', () => {
-    let observableMock: {flatMap: Spy};
+    let observableMock: { flatMap: Spy };
 
     beforeEach(() => {
       observableMock = <any>{}; // Init
