@@ -15,7 +15,7 @@ describe('High-level API', () => {
     TestBed.configureTestingModule({
       imports: [HttpModule],
       providers: [
-        {provide: XHRBackend, useClass: MockBackend},
+        { provide: XHRBackend, useClass: MockBackend },
         ...HTTP_INTERCEPTOR_PROVIDER
       ]
     });
@@ -134,7 +134,7 @@ describe('High-level API', () => {
   }
 
   function responseBody(body, status = 200) {
-    return new Response(new ResponseOptions({body, status}));
+    return new Response(new ResponseOptions({ body, status }));
   }
 
 });

@@ -43,11 +43,15 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome'],
+    browsers: ['DebuggableChrome'],
     singleRun: false,
 
     // browser for travis-ci
     customLaunchers: {
+      DebuggableChrome: {
+        base: 'Chrome',
+        flags: ['--remote-debugging-port=9222']
+      },
       Chrome_travis_ci: {
         base: 'Chrome',
         flags: ['--no-sandbox', harmony_flags]
