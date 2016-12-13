@@ -22,6 +22,7 @@
 * Interceptor Service is not coupled with Http Service
 * Choose between overriding original Http Service or keep it and still use interceptors
 * Comprehensive type assistance for your interceptor functions
+* Supports AOT compilation with shipped _*.metadata.json_ files
 
 ## Table of Contents
 
@@ -47,6 +48,20 @@ $ npm install ng2-http-interceptor --save
 
 ## Usage
 
+### New Way (since v1.x.x)
+
+#### Case #1
+
+Import `HttpInterceptorModule` to your application module.  
+This will override original `Http` Service and all requests will be intercepted.
+
+#### Case #2
+
+Import as `HttpInterceptorModule.noOverrideHttp()` to keep original `Http` Service
+and use `InterceptableHttp` for requests to be intercepted.
+
+### Legacy Way
+
 To use it you must first declare providers in your `@NgModule`.  
 You have 2 options:  
 1. Register `InterceptableHttp` AND override original `Http` service so
@@ -68,10 +83,12 @@ For case #2 use:
 }
 ```
 
-After registering you can use `InterceptableHttp` for your requests
-and `Http` if you chose to override it (case #1):
+### Example use-case
+
+You can use `InterceptableHttp` for your requests in case #1 and #2  
+and `Http` if you chose to override it (case #1 only):
 ```ts
-constructor(private http: Http, httpInterceptor: HttpInterceptorService) {
+constructor(http: Http, httpInterceptor: HttpInterceptorService) {
     httpInterceptor.request().addInterceptor((data, method) => {
       console.log(method, data);
       return data;
@@ -156,7 +173,7 @@ You will be dealing with specific one to satisfy it's criteria:
 
 ## Development
 
-To generate all `*.js`, `*.js.map` and `*.d.ts` files:
+To generate all `*.js`, `*.js.map`, `*.d.ts` and `*.metadata.json` files:
 
 ```bash
 $ npm run build
