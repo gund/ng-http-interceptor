@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, XHRBackend, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { HttpInterceptorService } from './http-interceptor.service';
-import { identityFactory } from './util';
+import { identityFactory, safeProxy } from './util';
 import { isObject } from 'util';
 
 @Injectable()
@@ -49,7 +49,7 @@ export class InterceptableHttpProxyService implements ProxyHandler<any> {
 }
 
 export function _proxyFactory(http, interceptor) {
-  return new Proxy(() => null, new InterceptableHttpProxyService(http, interceptor));
+  return safeProxy(() => null, new InterceptableHttpProxyService(http, interceptor));
 }
 
 export function proxyFactory(backend, options, interceptor) {
