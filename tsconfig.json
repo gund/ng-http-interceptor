@@ -5,7 +5,6 @@
     "experimentalDecorators": true,
     "noEmitHelpers": true,
     "lib": ["es6", "dom"],
-    "mapRoot": "./",
     "module": "es2015",
     "moduleResolution": "node",
     "outDir": "./dist",
