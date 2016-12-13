@@ -1,13 +1,8 @@
-/* tslint:disable:no-unused-variable */
-
-// noinspection ES6UnusedImports
-import { Http, RequestOptions, XHRBackend } from '@angular/http';
+import { Provider } from '@angular/core';
 import { HttpInterceptorService } from './http-interceptor.service';
-// noinspection ES6UnusedImports
 import {
   InterceptableHttpProxyProviders,
-  InterceptableHttpProxyNoOverrideProviders,
-  InterceptableHttpProxyService
+  InterceptableHttpProxyNoOverrideProviders
 } from './interceptable-http-proxy.service';
 import { InterceptableHttpProviders } from './interceptable-http';
 import { InterceptableStoreFactory } from './interceptable-store';
@@ -18,14 +13,12 @@ const SharedProviders = [
   ...InterceptableHttpProviders
 ];
 
-// noinspection JSUnusedGlobalSymbols
-export const HTTP_INTERCEPTOR_PROVIDER = [
+export const HTTP_INTERCEPTOR_PROVIDER: Provider[] = [
   ...SharedProviders,
   ...InterceptableHttpProxyProviders
 ];
 
-// noinspection JSUnusedGlobalSymbols
-export const HTTP_INTERCEPTOR_NO_OVERRIDE_PROVIDER = [
+export const HTTP_INTERCEPTOR_NO_OVERRIDE_PROVIDER: Provider[] = [
   ...SharedProviders,
   ...InterceptableHttpProxyNoOverrideProviders
 ];
