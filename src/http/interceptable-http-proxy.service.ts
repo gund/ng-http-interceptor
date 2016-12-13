@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, XHRBackend, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 import { HttpInterceptorService } from './http-interceptor.service';
-import { Observable } from 'rxjs';
-import { identityFactory } from './util';
+import { identityFactory, safeProxy } from './util';
 import { isObject } from 'util';
 
 @Injectable()
@@ -50,21 +50,27 @@ export class InterceptableHttpProxyService implements ProxyHandler<any> {
   }
 }
 
+export function _proxyFactory(http, interceptor) {
+  return safeProxy(() => null, new InterceptableHttpProxyService(http, interceptor));
+}
+
+export function proxyFactory(backend, options, interceptor) {
+  return _proxyFactory(new Http(backend, options), interceptor);
+}
+
 export const InterceptableHttpProxyProviders = [
   {
     provide: Http,
-    useFactory: (backend, options, interceptor) =>
-      new Proxy(() => null, new InterceptableHttpProxyService(new Http(backend, options), interceptor)),
+    useFactory: proxyFactory,
     deps: [XHRBackend, RequestOptions, HttpInterceptorService]
   },
-  identityFactory(InterceptableHttpProxyService, Http)
+  identityFactory(InterceptableHttpProxyService, Http),
 ];
 
 export const InterceptableHttpProxyNoOverrideProviders = [
   {
     provide: InterceptableHttpProxyService,
-    useFactory: (http, interceptor) =>
-      new Proxy(() => null, new InterceptableHttpProxyService(http, interceptor)),
+    useFactory: _proxyFactory,
     deps: [Http, HttpInterceptorService]
   }
 ];
