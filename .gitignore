@@ -1,3 +1,5 @@
+.vscode
+
 # Node
 node_modules/*
 npm-debug.log
@@ -23,3 +25,7 @@ Desktop.ini
 typings
 coverage
 .coveralls.yml
+
+# NG2 AOT
+/compiled
+*.metadata.json
