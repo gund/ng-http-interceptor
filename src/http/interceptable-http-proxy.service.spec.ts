@@ -43,31 +43,32 @@ describe('Service: InterceptableHttpProxy', () => {
     beforeEach(() => {
       observable = Observable.of('response');
       HttpMock.testMethod.and.returnValue(observable);
-      HttpInterceptorServiceMock._interceptRequest.and.returnValue(['url modified']);
+      HttpInterceptorServiceMock._interceptRequest.and.returnValue(Observable.of(['url modified']));
       HttpInterceptorServiceMock._interceptResponse.and.returnValue(Observable.of('modified response'));
     });
 
-    it('should call _interceptRequest() on service and method on Http', () => {
+    it('should call _interceptRequest() on service and method on Http', async(() => {
       service.get(null, 'testMethod', null);
-      service.apply(null, null, ['url']);
+      service.apply(null, null, ['url']).subscribe();
 
       expect(HttpInterceptorServiceMock._interceptRequest).toHaveBeenCalledWith('url', 'testMethod', ['url']);
       expect(HttpMock.testMethod).toHaveBeenCalledWith('url modified');
-    });
+    }));
 
-    it('should call _interceptRequest() and cancel request if it returns false and return empty observable', () => {
-      HttpInterceptorServiceMock._interceptRequest.and.returnValue(false);
+    it('should call _interceptRequest() and cancel request if it returns false', async(() => {
+      HttpInterceptorServiceMock._interceptRequest.and.returnValue(Observable.of(false));
+      const callback = jasmine.createSpy('callback');
 
       service.get(null, 'testMethod', null);
-      const res = service.apply(null, null, ['url']);
+      service.apply(null, null, ['url']).subscribe(callback);
 
       expect(HttpInterceptorServiceMock._interceptRequest).toHaveBeenCalledWith('url', 'testMethod', ['url']);
       expect(HttpMock.testMethod).not.toHaveBeenCalled();
-      expect(res).toEqual(Observable.empty());
-    });
+      expect(callback).not.toHaveBeenCalled();
+    }));
 
     it('should call _interceptRequest() with Request and correctly extract url', () => {
-      HttpInterceptorServiceMock._interceptRequest.and.returnValue(false);
+      HttpInterceptorServiceMock._interceptRequest.and.returnValue(Observable.of(false));
 
       service.get(null, 'testMethod', null);
       service.apply(null, null, [{url: 'url'}]);

@@ -26,20 +26,22 @@ export class InterceptableHttpProxyService implements ProxyHandler<any> {
   apply(target: any, thisArg: any, argArray?: any): any {
     const method = InterceptableHttpProxyService._callStack.pop();
 
-    const args = this.httpInterceptorService._interceptRequest(InterceptableHttpProxyService._extractUrl(argArray), method, argArray);
+    return this.httpInterceptorService
+      ._interceptRequest(InterceptableHttpProxyService._extractUrl(argArray), method, argArray)
+      .switchMap(args => {
+        // Check for request cancellation
+        if (!args) {
+          return Observable.empty();
+        }
 
-    // Check for request cancellation
-    if (!args) {
-      return Observable.empty();
-    }
+        const response = this.http[method].apply(this.http, args)
+          .publishLast()
+          .refCount();
 
-    const response = this.http[method].apply(this.http, args)
-      .publishLast()
-      .refCount();
-
-    return response
-      .flatMap(this._responseCall(args, method, response))
-      .catch(this._responseCall(args, method, response));
+        return response
+          .flatMap(this._responseCall(args, method, response))
+          .catch(this._responseCall(args, method, response));
+      });
   }
 
   private _responseCall(args, method, response) {
