@@ -10,7 +10,7 @@ describe('Service: HttpInterceptor', () => {
     setActiveStore: jasmine.Spy;
     getMatchedStores: jasmine.Spy;
     __isMock: boolean;
-  }
+  };
   type InterceptableStoreMockFn = (...a) => InterceptableStoreMock;
 
   class InterceptableStoreFactoryMock extends InterceptableStoreFactory {

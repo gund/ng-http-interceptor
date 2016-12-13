@@ -27,3 +27,9 @@ src
 test
 coverage
 typings
+.codeclimate.yml
+.travis.yml
+angular-cli.json
+*.deb
+karma.conf.js
+compiled
