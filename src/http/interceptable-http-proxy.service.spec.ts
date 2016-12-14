@@ -130,7 +130,7 @@ describe('Provider factory', () => {
   });
 
   describe('InterceptableHttpProxyNoOverrideProviders', () => {
-    const factory: (http, interceptor) => any = (<any>InterceptableHttpProxyNoOverrideProviders[0]).useFactory;
+    const factory: (http, interceptor) => any = (<any>InterceptableHttpProxyNoOverrideProviders[1]).useFactory;
 
     it('should wrap HttpInterceptorService into Proxy and return it', () => {
       const proxy = factory(Http, {});

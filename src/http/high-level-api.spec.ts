@@ -1,9 +1,11 @@
+import { InterceptableHttp } from './';
 import { TestBed, inject, async } from '@angular/core/testing';
-import { HttpInterceptorService } from './http-interceptor.service';
 import { XHRBackend, HttpModule, Http, Response, ResponseOptions } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
+import { Observable } from 'rxjs/Observable';
+import { HttpInterceptorModule } from './module';
 import { HTTP_INTERCEPTOR_PROVIDER } from './providers';
-import { Observable } from 'rxjs';
+import { HttpInterceptorService } from './http-interceptor.service';
 
 describe('High-level API', () => {
   let httpInterceptor: HttpInterceptorService;
@@ -106,6 +108,81 @@ describe('High-level API', () => {
       expect(interceptor).toHaveBeenCalled();
       expect(errorCallback).not.toHaveBeenCalled();
       expect(callback).toHaveBeenCalledWith('fixed error');
+    });
+  });
+
+  describe('HttpInterceptorModule', () => {
+    describe('by default', () => {
+      beforeEach(() => {
+        // Reconfigure to use HttpInterceptorModule
+        TestBed
+          .resetTestingModule()
+          .configureTestingModule({
+            imports: [HttpModule, HttpInterceptorModule],
+            providers: [{ provide: XHRBackend, useClass: MockBackend }]
+          });
+      });
+
+      beforeEach(inject(
+        [HttpInterceptorService, XHRBackend, Http],
+        (httpInterceptor_, mockBackend_, http_) => {
+          httpInterceptor = httpInterceptor_;
+          mockBackend = mockBackend_;
+          http = http_;
+        }));
+
+      it('should replace Http service with proxy', () => {
+        expect(http).not.toEqual(jasmine.any(Http));
+      });
+
+      describe('request()', () => {
+        beforeAll(() => interceptor.and.callFake(d => d));
+        beforeEach(() => httpInterceptor.request().addInterceptor(interceptor));
+
+        testHttpRequest('request');
+      });
+    });
+
+    describe('with noOverrideHttp()', () => {
+      let interceptableHttp: InterceptableHttp;
+
+      beforeEach(() => {
+        // Reconfigure to use HttpInterceptorModule
+        TestBed
+          .resetTestingModule()
+          .configureTestingModule({
+            imports: [HttpModule, HttpInterceptorModule.noOverrideHttp()],
+            providers: [{ provide: XHRBackend, useClass: MockBackend }]
+          });
+      });
+
+      beforeEach(inject(
+        [HttpInterceptorService, XHRBackend, Http, InterceptableHttp],
+        (httpInterceptor_, mockBackend_, http_, interceptableHttp_) => {
+          httpInterceptor = httpInterceptor_;
+          mockBackend = mockBackend_;
+          http = http_;
+          interceptableHttp = interceptableHttp_;
+        }));
+
+      it('should keep original Http service', () => {
+        expect(http).toEqual(jasmine.any(Http));
+      });
+
+      describe('request()', () => {
+        beforeAll(() => interceptor.and.callFake(d => d));
+        beforeEach(() => httpInterceptor.request().addInterceptor(interceptor));
+
+        it('should not intercept requests made by Http', async(() => {
+          http.get('something').subscribe();
+          expect(interceptor).not.toHaveBeenCalled();
+        }));
+
+        it('should intercept requests made by InterceptableHttp', async(() => {
+          interceptableHttp.get('something').subscribe();
+          expect(interceptor).toHaveBeenCalledWith(['something'], 'get');
+        }));
+      });
     });
   });
 
