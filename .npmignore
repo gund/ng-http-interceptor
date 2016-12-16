@@ -32,6 +32,8 @@ compiled
 karma.conf.js
 webpack.config.js
 tslint.json
+tsconfig*.json
+rollup.config.js
 travis_after_all.py
 .codeclimate.yml
 .travis.yml

@@ -1,3 +1,5 @@
+import '../rxjs';
+
 export * from './interceptable';
 export * from './interceptable-http';
 export * from './http-interceptor';

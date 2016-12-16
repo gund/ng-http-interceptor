@@ -1,5 +1,3 @@
-import './rxjs';
-
 /**
  * @module
  * @description
