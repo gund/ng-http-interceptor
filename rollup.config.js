@@ -10,6 +10,7 @@ export default {
         'rxjs/add/observable/of': 'Rx.Observable',
         'rxjs/add/observable/empty': 'Rx.Observable',
         'rxjs/add/operator/switchMap': 'Rx.Observable.prototype',
-        'rxjs/add/operator/mergeMap': 'Rx.Observable.prototype'
+        'rxjs/add/operator/mergeMap': 'Rx.Observable.prototype',
+        'rxjs/add/operator/publishLast': 'Rx.Observable.prototype'
     }
 }
