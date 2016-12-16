@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
+import { Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 import { HttpInterceptor, RequestInterceptor, ResponseInterceptor } from './http-interceptor';
 import { Interceptable } from './interceptable';
 import { InterceptableStoreFactory, DEFAULT_URL_STORE } from './interceptable-store';
-import { Observable } from 'rxjs';
-import { Response } from '@angular/http';
 
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {

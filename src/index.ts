@@ -1,3 +1,5 @@
+import './rxjs';
+
 /**
  * @module
  * @description
@@ -5,4 +7,4 @@
  * By default overrides angular's Http service
  * To keep original Http service use with {@see HttpInterceptorModule.noOverrideHttp()}
  */
-export * from './http'
+export * from './http/index'
