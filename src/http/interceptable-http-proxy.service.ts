@@ -3,7 +3,6 @@ import { Http, XHRBackend, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { HttpInterceptorService } from './http-interceptor.service';
 import { identityFactory, safeProxy } from './util';
-import { isObject } from 'util';
 
 @Injectable()
 export class InterceptableHttpProxyService implements ProxyHandler<any> {
@@ -12,7 +11,7 @@ export class InterceptableHttpProxyService implements ProxyHandler<any> {
 
   private static _extractUrl(url: any[]): string {
     const dirtyUrl: string & { url: string } = url[0];
-    return isObject(dirtyUrl) && 'url' in dirtyUrl ? dirtyUrl.url : dirtyUrl;
+    return typeof dirtyUrl === 'object' && 'url' in dirtyUrl ? dirtyUrl.url : dirtyUrl;
   }
 
   constructor(private http: Http, private httpInterceptorService: HttpInterceptorService) {
