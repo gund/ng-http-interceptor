@@ -111,7 +111,8 @@ from one of registered _request_ interceptors.
 You can return `Observable` from _request_ interceptors to do some async job.
 
 You can find in-depth explanation of internal concepts here: https://goo.gl/GU9VWo  
-Also if you want to play with it check this [repo](https://github.com/gund/angular2-http-interceptor-test).
+Also if you want to play with it check this [repo](https://github.com/gund/angular2-http-interceptor-test).  
+Or check this [plnkr demo](https://plnkr.co/edit/qTTdPl8EggQleTfTSbch).
 
 ## Documentation
 
