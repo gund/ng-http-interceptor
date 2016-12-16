@@ -3,29 +3,43 @@
 
 module.exports = function (config) {
   var harmony_flags = '--js-flags="' + [
-      '--harmony-arrow-functions',
-      '--harmony-classes',
-      '--harmony-computed-property-names',
-      '--harmony-spreadcalls',
-    ].join(' ') + '"';
+    '--harmony-arrow-functions',
+    '--harmony-classes',
+    '--harmony-computed-property-names',
+    '--harmony-spreadcalls',
+  ].join(' ') + '"';
 
   var configuration = {
     basePath: '',
-    frameworks: ['jasmine', 'angular-cli'],
+    frameworks: ['jasmine'],
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
       require('karma-remap-istanbul'),
-      require('angular-cli/plugins/karma')
+      require('karma-sourcemap-loader'),
+      require('karma-webpack')
     ],
+    webpack: require('./webpack.config.js'),
+    webpackMiddleware: {
+      noInfo: true, // Hide webpack output because its noisy.
+      stats: { // Also prevent chunk and module display output, cleaner look. Only emit errors.
+        assets: false,
+        colors: true,
+        version: false,
+        hash: false,
+        timings: false,
+        chunks: false,
+        chunkModules: false
+      }
+    },
     files: [
-      {pattern: './src/test.ts', watched: false}
+      { pattern: './src/test.ts', watched: false }
     ],
     preprocessors: {
-      './src/test.ts': ['angular-cli']
+      './src/test.ts': ['webpack', 'sourcemap']
     },
     mime: {
-      'text/x-typescript': ['ts','tsx']
+      'text/x-typescript': ['ts', 'tsx']
     },
     remapIstanbulReporter: {
       reports: {
@@ -36,10 +50,6 @@ module.exports = function (config) {
       remapOptions: {
         exclude: /(util|test|polyfills).ts$/
       }
-    },
-    angularCli: {
-      config: './angular-cli.json',
-      environment: 'dev'
     },
     reporters: ['progress', 'karma-remap-istanbul'],
     port: 9876,
