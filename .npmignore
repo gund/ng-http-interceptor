@@ -23,13 +23,17 @@ Desktop.ini
 .DS_Store
 **/.DS_Store
 
+# Project
 src
 test
 coverage
 typings
+compiled
+karma.conf.js
+webpack.config.js
+tslint.json
+travis_after_all.py
 .codeclimate.yml
 .travis.yml
-angular-cli.json
+.to_export_back
 *.deb
-karma.conf.js
-compiled
