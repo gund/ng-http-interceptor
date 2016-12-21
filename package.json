@@ -61,7 +61,7 @@
     "awesome-typescript-loader": "^2.2.3",
     "codecov": "^1.0.1",
     "codelyzer": "~0.0.26",
-    "commitizen": "^2.8.6",
+    "commitizen": "^2.9.2",
     "core-js": "^2.4.1",
     "cz-conventional-changelog": "^1.2.0",
     "ghooks": "^2.0.0",
