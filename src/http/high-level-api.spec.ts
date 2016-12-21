@@ -1,8 +1,9 @@
 import { InterceptableHttp } from './';
-import { TestBed, inject, async } from '@angular/core/testing';
+import { TestBed, inject, async, fakeAsync, tick } from '@angular/core/testing';
 import { XHRBackend, HttpModule, Http, Response, ResponseOptions } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import { HttpInterceptorModule } from './module';
 import { HTTP_INTERCEPTOR_PROVIDER } from './providers';
 import { HttpInterceptorService } from './http-interceptor.service';
@@ -71,6 +72,30 @@ describe('High-level API', () => {
       http.get('/').subscribe(callback);
 
       expect(callback).not.toHaveBeenCalled();
+    }));
+
+    it('should wait for `Observable` when returned from interceptor', fakeAsync(() => {
+      const callback = jasmine.createSpy('callback');
+      const callbackBackend = jasmine.createSpy('callbackBackend').and.callFake(conn => {
+        expect(conn.request.url).toBe('/changed');
+        conn.mockRespond(responseBody('ok'));
+      });
+      const obs$ = new Subject<any>();
+
+      interceptor.and.returnValue(obs$.asObservable());
+      mockBackend.connections.subscribe(callbackBackend);
+
+      http.get('/').subscribe(callback);
+
+      expect(interceptor).toHaveBeenCalledWith(['/'], 'get');
+      expect(callbackBackend).not.toHaveBeenCalled();
+      expect(callback).not.toHaveBeenCalled();
+
+      obs$.next(['/changed']);
+      tick();
+
+      expect(callbackBackend).toHaveBeenCalled();
+      expect(callback).toHaveBeenCalled();
     }));
   });
 

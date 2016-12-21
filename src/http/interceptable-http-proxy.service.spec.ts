@@ -2,7 +2,8 @@ import { TestBed, inject, async } from '@angular/core/testing';
 import {
   InterceptableHttpProxyService,
   InterceptableHttpProxyProviders,
-  InterceptableHttpProxyNoOverrideProviders
+  InterceptableHttpProxyNoOverrideProviders,
+  _proxyTarget
 } from './interceptable-http-proxy.service';
 import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
 import { HttpInterceptorService } from './http-interceptor.service';
@@ -10,7 +11,7 @@ import { Observable } from 'rxjs';
 
 describe('Service: InterceptableHttpProxy', () => {
   let service: InterceptableHttpProxyService;
-  const HttpMock = {testMethod: null}, HttpInterceptorServiceMock = {_interceptRequest: null, _interceptResponse: null};
+  const HttpMock = { testMethod: null }, HttpInterceptorServiceMock = { _interceptRequest: null, _interceptResponse: null };
 
   beforeEach(() => {
     HttpMock.testMethod = jasmine.createSpy('testMethod');
@@ -22,8 +23,8 @@ describe('Service: InterceptableHttpProxy', () => {
     TestBed.configureTestingModule({
       imports: [HttpModule],
       providers: [
-        {provide: Http, useValue: HttpMock},
-        {provide: HttpInterceptorService, useValue: HttpInterceptorServiceMock},
+        { provide: Http, useValue: HttpMock },
+        { provide: HttpInterceptorService, useValue: HttpInterceptorServiceMock },
         InterceptableHttpProxyService
       ]
     });
@@ -32,6 +33,10 @@ describe('Service: InterceptableHttpProxy', () => {
   beforeEach(inject([InterceptableHttpProxyService], s => service = s));
 
   it('should exist', () => expect(service).toBeTruthy());
+
+  it('increase coverage to 100% ^^', () => {
+    _proxyTarget();
+  });
 
   describe('get() method', () => {
     it('should return receiver from args', () => expect(service.get(null, null, 'target')).toBe('target'));
@@ -71,9 +76,9 @@ describe('Service: InterceptableHttpProxy', () => {
       HttpInterceptorServiceMock._interceptRequest.and.returnValue(Observable.of(false));
 
       service.get(null, 'testMethod', null);
-      service.apply(null, null, [{url: 'url'}]);
+      service.apply(null, null, [{ url: 'url' }]);
 
-      expect(HttpInterceptorServiceMock._interceptRequest).toHaveBeenCalledWith('url', 'testMethod', [{url: 'url'}]);
+      expect(HttpInterceptorServiceMock._interceptRequest).toHaveBeenCalledWith('url', 'testMethod', [{ url: 'url' }]);
     });
 
     it('should call .flatMap() on success, call _interceptRequest() inside and return result', () => {

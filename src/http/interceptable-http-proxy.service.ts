@@ -49,8 +49,10 @@ export class InterceptableHttpProxyService implements ProxyHandler<any> {
   }
 }
 
+export const _proxyTarget = () => null;
+
 export function _proxyFactory(http, interceptor) {
-  return safeProxy(() => null, new InterceptableHttpProxyService(http, interceptor));
+  return safeProxy(_proxyTarget, new InterceptableHttpProxyService(http, interceptor));
 }
 
 export function proxyFactory(backend, options, interceptor) {
