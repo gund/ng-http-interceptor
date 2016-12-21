@@ -77,7 +77,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^1.8.0",
     "postcss-loader": "^1.2.1",
-    "protractor": "4.0.13",
+    "protractor": "4.0.14",
     "raw-loader": "^0.5.1",
     "rimraf": "^2.5.4",
     "rollup": "^0.37.0",
