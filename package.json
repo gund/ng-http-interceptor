@@ -75,7 +75,7 @@
     "karma-jasmine": "^1.1.0",
     "karma-remap-istanbul": "^0.3.2",
     "karma-sourcemap-loader": "^0.3.7",
-    "karma-webpack": "^1.8.0",
+    "karma-webpack": "^1.8.1",
     "postcss-loader": "^1.2.1",
     "protractor": "4.0.14",
     "raw-loader": "^0.5.1",
