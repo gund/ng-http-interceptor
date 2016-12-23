@@ -23,6 +23,7 @@
 * Choose between overriding original Http Service or keep it and still use interceptors
 * Comprehensive type assistance for your interceptor functions
 * Supports AOT compilation with shipped _*.metadata.json_ files
+* UMD builds in _dist/bundles_ folder ready to use in Browsers
 
 ## Table of Contents
 
