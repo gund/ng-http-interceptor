@@ -1,3 +1,5 @@
+export const SAFE_PROXY_TRAPS = ['get', 'set', 'apply'];
+
 export function identityFactory_(ref) {
   return ref;
 }
@@ -9,8 +11,6 @@ export function identityFactory(provide, obj) {
     deps: [obj]
   };
 }
-
-export const SAFE_PROXY_TRAPS = ['get', 'set', 'apply'];
 
 export function safeProxyHandler_(handler: any): any {
   const safeHandler = {};
