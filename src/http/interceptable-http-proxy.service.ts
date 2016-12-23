@@ -51,6 +51,9 @@ export class InterceptableHttpProxyService implements ProxyHandler<any> {
 
 export const _proxyTarget = () => null;
 
+// Make sure all Http methods are known for Proxy Polyfill
+Object.keys(Http.prototype).forEach(method => _proxyTarget[method] = `Http.${method}`);
+
 export function _proxyFactory(http, interceptor) {
   return safeProxy(_proxyTarget, new InterceptableHttpProxyService(http, interceptor));
 }
