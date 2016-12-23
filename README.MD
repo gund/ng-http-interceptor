@@ -174,6 +174,66 @@ You will be dealing with specific one to satisfy it's criteria:
     (this is made specifically to prevent other code being broken
     because response was intercepted and structure changed)
 
+#### Since v1.3.0 - Helpers Functions
+
+There are a bunch of helper functions added to simplify some common
+work with _data_ array (for ex. getting `RequestOptions` or even `Headers`).
+
+**getHttpHeadersOrInit()**
+```ts
+export function getHttpHeadersOrInit(data: any[], method: string): Headers;
+```
+
+<sub>See [src/http/helpers/getHttpHeadersOrInit.ts](./src/http/helpers/getHttpHeadersOrInit.ts) for full reference</sub>
+
+_Description_: Gets `Headers` from _data_ array.  
+If no `RequestOptions` found - creates it and updates original _data_ array.  
+If no `Headers` found - creates it and sets to `RequestOptions`.
+
+**getHttpOptionsAndIdx()**
+```ts
+export function getHttpOptionsAndIdx(
+    data: any[],
+    method: string,
+    alwaysOriginal?: boolean
+): {
+    options: RequestOptions;
+    idx: number;
+};
+```
+
+<sub>See [src/http/helpers/getHttpOptionsAndIdx.ts](./src/http/helpers/getHttpOptionsAndIdx.ts) for full reference</sub>
+
+_Description_: Gets `RequestOptions` and it's index location in _data_ array.  
+If no options found and `alwaysOriginal = false` - creates new `RequestOptions`
+but does NOT set it back on _data_ array.
+* Param `alwaysOriginal` is `false` by default.
+
+**getHttpOptions()**
+```ts
+export function getHttpOptions(
+    data: any[],
+    method: string,
+    alwaysOriginal?: boolean): RequestOptions;
+```
+
+<sub>See [src/http/helpers/getHttpOptions.ts](./src/http/helpers/getHttpOptions.ts) for full reference</sub>
+
+_Description_: Gets http `RequestOptions` from data array.  
+If no options found and `alwaysOriginal = false` - returns new {@link RequestOptions}
+but does NOT set it back on _data_ array.
+* Param `alwaysOriginal` is `false` by default.
+
+**getHttpOptionsIdx()**
+```ts
+export function getHttpOptionsIdx(method: string): number;
+```
+
+<sub>See [src/http/helpers/getHttpOptionsIdx.ts](./src/http/helpers/getHttpOptionsIdx.ts) for full reference</sub>
+
+_Description_: Gets index of `RequestOptions` in http data array for specified `method`.
+
+
 ## Development
 
 To generate all `*.js`, `*.js.map`, `*.d.ts` and `*.metadata.json` files:
