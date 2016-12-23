@@ -221,7 +221,7 @@ export function getHttpOptions(
 <sub>See [src/http/helpers/getHttpOptions.ts](./src/http/helpers/getHttpOptions.ts) for full reference</sub>
 
 _Description_: Gets http `RequestOptions` from data array.  
-If no options found and `alwaysOriginal = false` - returns new {@link RequestOptions}
+If no options found and `alwaysOriginal = false` - returns new `RequestOptions`
 but does NOT set it back on _data_ array.
 * Param `alwaysOriginal` is `false` by default.
 
