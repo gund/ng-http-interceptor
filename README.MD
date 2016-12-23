@@ -24,6 +24,7 @@
 * Comprehensive type assistance for your interceptor functions
 * Supports AOT compilation with shipped _*.metadata.json_ files
 * UMD builds in _dist/bundles_ folder ready to use in Browsers
+* Simple http data extraction and manipulation with [Helpers Functions](#helpers-functions-since-v130)
 
 ## Table of Contents
 
@@ -174,7 +175,7 @@ You will be dealing with specific one to satisfy it's criteria:
     (this is made specifically to prevent other code being broken
     because response was intercepted and structure changed)
 
-#### Since v1.3.0 - Helpers Functions
+#### Helpers Functions (since v1.3.0)
 
 There are a bunch of helper functions added to simplify some common
 work with _data_ array (for ex. getting `RequestOptions` or even `Headers`).
