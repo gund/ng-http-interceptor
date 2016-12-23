@@ -48,7 +48,7 @@ module.exports = function (config) {
         json: './coverage/coverage.json'
       },
       remapOptions: {
-        exclude: /(util|test|polyfills).ts$/
+        exclude: /(test|polyfills|rxjs).ts$/
       }
     },
     reporters: ['progress', 'karma-remap-istanbul'],

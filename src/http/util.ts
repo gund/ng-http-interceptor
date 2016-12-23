@@ -12,16 +12,16 @@ export function identityFactory(provide, obj) {
 
 export const SAFE_PROXY_TRAPS = ['get', 'set', 'apply'];
 
-export function safeProxyHandler_(handler: any, traps: string[]): any {
+export function safeProxyHandler_(handler: any): any {
   const safeHandler = {};
 
-  traps
-    .filter(trap => typeof handler[trap] === 'function' && traps.indexOf(trap) !== -1)
+  SAFE_PROXY_TRAPS
+    .filter(trap => typeof handler[trap] === 'function')
     .forEach(trap => safeHandler[trap] = handler[trap].bind(handler));
 
   return safeHandler;
 }
 
-export function safeProxy(obj: any, handler: any, traps = SAFE_PROXY_TRAPS): any {
-  return new Proxy(obj, safeProxyHandler_(handler, traps));
+export function safeProxy(obj: any, handler: any): any {
+  return new Proxy(obj, safeProxyHandler_(handler));
 }
