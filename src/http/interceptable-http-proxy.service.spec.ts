@@ -56,7 +56,7 @@ describe('Service: InterceptableHttpProxy', () => {
       service.get(null, 'testMethod', null);
       service.apply(null, null, ['url']).subscribe();
 
-      expect(HttpInterceptorServiceMock._interceptRequest).toHaveBeenCalledWith('url', 'testMethod', ['url']);
+      expect(HttpInterceptorServiceMock._interceptRequest).toHaveBeenCalledWith('url', 'testMethod', ['url'], jasmine.anything());
       expect(HttpMock.testMethod).toHaveBeenCalledWith('url modified');
     }));
 
@@ -67,7 +67,7 @@ describe('Service: InterceptableHttpProxy', () => {
       service.get(null, 'testMethod', null);
       service.apply(null, null, ['url']).subscribe(callback);
 
-      expect(HttpInterceptorServiceMock._interceptRequest).toHaveBeenCalledWith('url', 'testMethod', ['url']);
+      expect(HttpInterceptorServiceMock._interceptRequest).toHaveBeenCalledWith('url', 'testMethod', ['url'], jasmine.anything());
       expect(HttpMock.testMethod).not.toHaveBeenCalled();
       expect(callback).not.toHaveBeenCalled();
     }));
@@ -78,7 +78,7 @@ describe('Service: InterceptableHttpProxy', () => {
       service.get(null, 'testMethod', null);
       service.apply(null, null, [{ url: 'url' }]);
 
-      expect(HttpInterceptorServiceMock._interceptRequest).toHaveBeenCalledWith('url', 'testMethod', [{ url: 'url' }]);
+      expect(HttpInterceptorServiceMock._interceptRequest).toHaveBeenCalledWith('url', 'testMethod', [{ url: 'url' }], jasmine.anything());
     });
 
     it('should call .flatMap() on success, call _interceptRequest() inside and return result', () => {
@@ -94,7 +94,8 @@ describe('Service: InterceptableHttpProxy', () => {
 
       // This check is no longer valid since observable shared internally
       // expect(observable.flatMap).toHaveBeenCalledWith(jasmine.any(Function)); // Normal branch!
-      expect(HttpInterceptorServiceMock._interceptResponse).toHaveBeenCalledWith('url modified', 'testMethod', jasmine.any(Observable));
+      expect(HttpInterceptorServiceMock._interceptResponse).toHaveBeenCalledWith('url modified', 'testMethod',
+        jasmine.any(Observable), jasmine.anything());
       expect(callback).toHaveBeenCalledWith('modified response');
     });
 
@@ -115,7 +116,8 @@ describe('Service: InterceptableHttpProxy', () => {
 
       // This check is no longer valid since observable shared internally
       // expect(observable.catch).toHaveBeenCalledWith(jasmine.any(Function)); // Catch branch!
-      expect(HttpInterceptorServiceMock._interceptResponse).toHaveBeenCalledWith('url modified', 'testMethod', jasmine.any(Observable));
+      expect(HttpInterceptorServiceMock._interceptResponse).toHaveBeenCalledWith('url modified', 'testMethod',
+        jasmine.any(Observable), jasmine.anything());
       expect(callback).toHaveBeenCalledWith('modified response');
     }));
   });

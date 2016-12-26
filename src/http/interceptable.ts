@@ -5,5 +5,5 @@ export interface Interceptable<T extends Interceptor<any, any>> {
 }
 
 export interface Interceptor<T, D> {
-  (data: T, method: string): D;
+  (data: T, method: string, ctx?: any): D;
 }
