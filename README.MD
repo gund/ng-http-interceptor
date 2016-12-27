@@ -38,7 +38,10 @@
 ## Prerequisites
 
 This library uses `Proxy` from ES6 spec so if you need to support browsers
-that are ES5 compatible include [proxy-polyfill](https://github.com/GoogleChrome/proxy-polyfill).
+that are ES5 compatible include [proxy-polyfill](https://github.com/GoogleChrome/proxy-polyfill).  
+  
+If you are getting error like: `ReferenceError: __extends is not defined`  
+Please make sure that you are importing `ts-helpers` module in your application.
 
 ## Installation
 
