@@ -105,9 +105,9 @@ describe('Service: HttpInterceptor', () => {
       service._interceptRequest('/url', method, ['/url']).subscribe(r => res = r);
 
       expect(store.getMatchedStores).toHaveBeenCalledWith('/url');
-      expect(fn1).toHaveBeenCalledWith(['/url'], method);
-      expect(fn2).toHaveBeenCalledWith(['/url1'], method);
-      expect(fn3).toHaveBeenCalledWith(['/url2'], method);
+      expect(fn1).toHaveBeenCalledWith(['/url'], method, undefined);
+      expect(fn2).toHaveBeenCalledWith(['/url1'], method, undefined);
+      expect(fn3).toHaveBeenCalledWith(['/url2'], method, undefined);
       expect(res).toEqual(['/url3']);
     }));
 
@@ -124,8 +124,8 @@ describe('Service: HttpInterceptor', () => {
       service._interceptRequest('/url', method, ['/url']).subscribe(r => res = r);
 
       expect(store.getMatchedStores).toHaveBeenCalledWith('/url');
-      expect(fn1).toHaveBeenCalledWith(['/url'], method);
-      expect(fn2).toHaveBeenCalledWith(['/url1'], method);
+      expect(fn1).toHaveBeenCalledWith(['/url'], method, undefined);
+      expect(fn2).toHaveBeenCalledWith(['/url1'], method, undefined);
       expect(fn3).not.toHaveBeenCalled();
       expect(res).toBeFalsy();
     }));
@@ -153,9 +153,9 @@ describe('Service: HttpInterceptor', () => {
       const res = service._interceptResponse('/url', method, <any>observableMock);
 
       expect(store.getMatchedStores).toHaveBeenCalledWith('/url');
-      expect(fn1).toHaveBeenCalledWith(observableMock, method);
-      expect(fn2).toHaveBeenCalledWith(observableMock, method);
-      expect(fn3).toHaveBeenCalledWith(observableMock, method);
+      expect(fn1).toHaveBeenCalledWith(observableMock, method, undefined);
+      expect(fn2).toHaveBeenCalledWith(observableMock, method, undefined);
+      expect(fn3).toHaveBeenCalledWith(observableMock, method, undefined);
       expect(res).toBe('changed observable');
     });
   });

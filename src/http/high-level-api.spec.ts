@@ -87,7 +87,7 @@ describe('High-level API', () => {
 
       http.get('/').subscribe(callback);
 
-      expect(interceptor).toHaveBeenCalledWith(['/'], 'get');
+      expect(interceptor).toHaveBeenCalledWith(['/'], 'get', jasmine.anything());
       expect(callbackBackend).not.toHaveBeenCalled();
       expect(callback).not.toHaveBeenCalled();
 
@@ -97,6 +97,21 @@ describe('High-level API', () => {
       expect(callbackBackend).toHaveBeenCalled();
       expect(callback).toHaveBeenCalled();
     }));
+
+    it('should be able to share data between interceptors', async(() => {
+      interceptor.and.callFake((d, m, context) => {
+          context['testkey'] = 'test';
+          return d;
+      });
+      const interceptor1 = jasmine.createSpy('interceptor1');
+        interceptor1.and.callFake((d, m, context) => {
+          expect(context).not.toBeNull();
+          expect(context['testkey']).toBe('test');
+          return d;
+        });
+        httpInterceptor.request().addInterceptor(interceptor1);
+        http.post('/url', 'data').subscribe(() => null);
+      }));
   });
 
   describe('response()', () => {
@@ -205,7 +220,7 @@ describe('High-level API', () => {
 
         it('should intercept requests made by InterceptableHttp', async(() => {
           interceptableHttp.get('something').subscribe();
-          expect(interceptor).toHaveBeenCalledWith(['something'], 'get');
+          expect(interceptor).toHaveBeenCalledWith(['something'], 'get', jasmine.anything());
         }));
       });
     });
@@ -229,7 +244,7 @@ describe('High-level API', () => {
 
       http[method](url, data).subscribe(callback); // Request
 
-      expect(interceptor).toHaveBeenCalledWith([url, data], method); // Interceptor called?
+      expect(interceptor).toHaveBeenCalledWith([url, data], method, jasmine.anything()); // Interceptor called?
       expect(callback).toHaveBeenCalled(); // Response callback called?
       expect(connCallback).toHaveBeenCalledTimes(1); // Only one request?
     }));

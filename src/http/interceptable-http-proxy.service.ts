@@ -25,8 +25,11 @@ export class InterceptableHttpProxyService implements ProxyHandler<any> {
   apply(target: any, thisArg: any, argArray?: any): any {
     const method = InterceptableHttpProxyService._callStack.pop();
 
+    // create a object without prototype as the context object
+    const context = Object.create(null);
+
     return this.httpInterceptorService
-      ._interceptRequest(InterceptableHttpProxyService._extractUrl(argArray), method, argArray)
+      ._interceptRequest(InterceptableHttpProxyService._extractUrl(argArray), method, argArray, context)
       .switchMap(args => {
         // Check for request cancellation
         if (!args) {
@@ -38,14 +41,14 @@ export class InterceptableHttpProxyService implements ProxyHandler<any> {
           .refCount();
 
         return response
-          .flatMap(this._responseCall(args, method, response))
-          .catch(this._responseCall(args, method, response));
+          .flatMap(this._responseCall(args, method, response, context))
+          .catch(this._responseCall(args, method, response, context));
       });
   }
 
-  private _responseCall(args, method, response) {
+  private _responseCall(args, method, response, context) {
     return () => this.httpInterceptorService._interceptResponse(
-      InterceptableHttpProxyService._extractUrl(args), method, response);
+      InterceptableHttpProxyService._extractUrl(args), method, response, context);
   }
 }
 

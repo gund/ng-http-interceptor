@@ -26,20 +26,20 @@ export class HttpInterceptorService implements HttpInterceptor {
     return this._responseStore.setActiveStore(url);
   }
 
-  _interceptRequest(url: string, method: string, data: any[]): Observable<any[]> {
+  _interceptRequest(url: string, method: string, data: any[], context?: any): Observable<any[]> {
     return this._requestStore.getMatchedStores(url).reduce(
       (o, i) => o.flatMap(d => {
         if (!d) {
           return Observable.of(d);
         }
-        return HttpInterceptorService.wrapInObservable(i(d, method));
+        return HttpInterceptorService.wrapInObservable(i(d, method, context));
       }),
       Observable.of(data)
     );
   }
 
-  _interceptResponse(url: string, method: string, response: Observable<Response>): Observable<Response> {
-    return this._responseStore.getMatchedStores(url).reduce((o, i) => i(o, method), response);
+  _interceptResponse(url: string, method: string, response: Observable<Response>, context?: any): Observable<Response> {
+    return this._responseStore.getMatchedStores(url).reduce((o, i) => i(o, method, context), response);
   }
 
 }
