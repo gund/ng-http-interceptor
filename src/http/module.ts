@@ -21,8 +21,13 @@ export class HttpInterceptorModule {
      */
     static noOverrideHttp(): ModuleWithProviders {
         return {
-            ngModule: HttpInterceptorModule,
-            providers: [HTTP_INTERCEPTOR_NO_OVERRIDE_PROVIDER]
+            ngModule: HttpInterceptorNoOverrideModule
         };
     }
 }
+
+@NgModule({
+    imports: [HttpModule],
+    providers: [HTTP_INTERCEPTOR_NO_OVERRIDE_PROVIDER]
+})
+export class HttpInterceptorNoOverrideModule { }

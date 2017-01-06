@@ -65,10 +65,6 @@ export function proxyFactory(backend, options, interceptor) {
   return _proxyFactory(new Http(backend, options), interceptor);
 }
 
-export function httpFactory(xhrBackend, requestOptions) {
-  return new Http(xhrBackend, requestOptions);
-}
-
 export const InterceptableHttpProxyProviders = [
   {
     provide: Http,
@@ -79,8 +75,6 @@ export const InterceptableHttpProxyProviders = [
 ];
 
 export const InterceptableHttpProxyNoOverrideProviders = [
-  // Put original Http back
-  { provide: Http, useFactory: httpFactory, deps: [XHRBackend, RequestOptions] },
   {
     provide: InterceptableHttpProxyService,
     useFactory: _proxyFactory,
