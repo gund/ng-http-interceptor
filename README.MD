@@ -25,6 +25,7 @@
 * Supports AOT compilation with shipped _*.metadata.json_ files
 * UMD builds in _dist/bundles_ folder ready to use in Browsers
 * Simple http data extraction and manipulation with [Helpers Functions](#helpers-functions-since-v130)
+* Sharing context object between all interceptors
 
 ## Table of Contents
 
@@ -159,8 +160,8 @@ respect to your selected configuration (url filtering).
 
 **Interceptor**
 ```ts
-export interface Interceptor {
-  (data: any, method: string): any;
+Interceptor<T, D> {
+  (data: T, method: string, ctx?: any): D;
 }
 ```
 
@@ -185,7 +186,7 @@ work with _data_ array (for ex. getting `RequestOptions` or even `Headers`).
 
 **getHttpHeadersOrInit()**
 ```ts
-export function getHttpHeadersOrInit(data: any[], method: string): Headers;
+function getHttpHeadersOrInit(data: any[], method: string): Headers;
 ```
 
 <sub>See [src/http/helpers/getHttpHeadersOrInit.ts](./src/http/helpers/getHttpHeadersOrInit.ts) for full reference</sub>
@@ -196,7 +197,7 @@ If no `Headers` found - creates it and sets to `RequestOptions`.
 
 **getHttpOptionsAndIdx()**
 ```ts
-export function getHttpOptionsAndIdx(
+function getHttpOptionsAndIdx(
     data: any[],
     method: string,
     alwaysOriginal?: boolean
@@ -215,7 +216,7 @@ but does NOT set it back on _data_ array.
 
 **getHttpOptions()**
 ```ts
-export function getHttpOptions(
+function getHttpOptions(
     data: any[],
     method: string,
     alwaysOriginal?: boolean): RequestOptions;
@@ -230,7 +231,7 @@ but does NOT set it back on _data_ array.
 
 **getHttpOptionsIdx()**
 ```ts
-export function getHttpOptionsIdx(method: string): number;
+function getHttpOptionsIdx(method: string): number;
 ```
 
 <sub>See [src/http/helpers/getHttpOptionsIdx.ts](./src/http/helpers/getHttpOptionsIdx.ts) for full reference</sub>
