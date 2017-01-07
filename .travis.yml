@@ -23,8 +23,10 @@ before_install:
   - npm i -g yarn
 install:
   - yarn
+  - yarn e2e:update
 script:
   - yarn ci
+  - yarn e2e
 after_success:
   - 'curl -Lo travis_after_all.py https://git.io/travis_after_all'
   - python travis_after_all.py
