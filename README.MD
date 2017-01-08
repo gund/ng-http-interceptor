@@ -8,7 +8,7 @@
 [![Coverage](https://img.shields.io/codecov/c/github/gund/ng-http-interceptor.svg?maxAge=2592000)](https://codecov.io/gh/gund/ng-http-interceptor)
 [![Code Climate](https://img.shields.io/codeclimate/github/gund/ng-http-interceptor.svg?maxAge=2592000)](https://codeclimate.com/github/gund/ng-http-interceptor)
 [![Npm](https://img.shields.io/npm/v/ng-http-interceptor.svg?maxAge=2592000)](https://badge.fury.io/js/ng-http-interceptor)
-[![Npm Downloads](https://img.shields.io/npm/dt/ng-http-interceptor.svg?maxAge=2592000)](https://www.npmjs.com/package/ng-http-interceptor)
+[![Npm Downloads](https://img.shields.io/npm/dt/ng2-http-interceptor.svg?maxAge=2592000)](https://www.npmjs.com/package/ng-http-interceptor)
 [![Licence](https://img.shields.io/npm/l/ng-http-interceptor.svg?maxAge=2592000)](https://github.com/gund/ng-http-interceptor/blob/master/LICENSE)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
