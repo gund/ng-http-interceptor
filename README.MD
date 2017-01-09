@@ -56,8 +56,6 @@ $ npm install ng-http-interceptor --save
 
 ## Usage
 
-### New Way (since v1.x.x)
-
 #### Case #1
 
 Import `HttpInterceptorModule` to your application module.  
