@@ -68,29 +68,6 @@ This will override original `Http` Service and all requests will be intercepted.
 Import as `HttpInterceptorModule.noOverrideHttp()` to keep original `Http` Service
 and use `InterceptableHttp` for requests to be intercepted.
 
-### Legacy Way
-
-To use it you must first declare providers in your `@NgModule`.  
-You have 2 options:  
-1. Register `InterceptableHttp` AND override original `Http` service so
-that all your requests will be intercepted  
-2. Register ONLY `InterceptableHttp` and keep original `Http` service so
-you can make requests which are intercepted and not.
-  
-For case #1 use:
-```ts
-{
-    providers: [...HTTP_INTERCEPTOR_PROVIDER]
-}
-```
-
-For case #2 use:
-```ts
-{
-    providers: [...HTTP_INTERCEPTOR_NO_OVERRIDE_PROVIDER]
-}
-```
-
 ### Example use-case
 
 You can use `InterceptableHttp` for your requests in case #1 and #2  
