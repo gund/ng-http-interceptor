@@ -1,6 +1,6 @@
 export default {
     entry: 'dist/index.js',
-    dest: 'dist/bundles/ng2-http-interceptor.umd.js',
+    dest: 'dist/bundles/ng-http-interceptor.umd.js',
     format: 'umd',
     moduleName: 'httpInterceptor',
     globals: {

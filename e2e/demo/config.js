@@ -12,7 +12,7 @@ System.config({
   map: {
     
     'app': './src',
-    'ng2-http-interceptor': './dist/bundles/ng2-http-interceptor.umd.js',
+    'ng2-http-interceptor': './dist/bundles/ng-http-interceptor.umd.js',
     
     '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
     '@angular/common': 'npm:@angular/common/bundles/common.umd.js',

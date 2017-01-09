@@ -1,13 +1,15 @@
-# ng2-http-interceptor
+# ng-http-interceptor
 
-> Http Interceptor library for Angular 2
+> Http Interceptor library for Angular
 
-[![Travis CI](https://img.shields.io/travis/gund/ng2-http-interceptor/master.svg?maxAge=2592000)](https://travis-ci.org/gund/ng2-http-interceptor)
-[![Coverage](https://img.shields.io/codecov/c/github/gund/ng2-http-interceptor.svg?maxAge=2592000)](https://codecov.io/gh/gund/ng2-http-interceptor)
-[![Code Climate](https://img.shields.io/codeclimate/github/gund/ng2-http-interceptor.svg?maxAge=2592000)](https://codeclimate.com/github/gund/ng2-http-interceptor)
-[![Npm](https://img.shields.io/npm/v/ng2-http-interceptor.svg?maxAge=2592000)](https://badge.fury.io/js/ng2-http-interceptor)
-[![Npm Downloads](https://img.shields.io/npm/dt/ng2-http-interceptor.svg?maxAge=2592000)](https://www.npmjs.com/package/ng2-http-interceptor)
-[![Licence](https://img.shields.io/npm/l/ng2-http-interceptor.svg?maxAge=2592000)](https://github.com/gund/ng2-http-interceptor/blob/master/LICENSE)
+*Previously was called `ng2-http-interceptor`*
+
+[![Travis CI](https://img.shields.io/travis/gund/ng-http-interceptor/master.svg?maxAge=2592000)](https://travis-ci.org/gund/ng-http-interceptor)
+[![Coverage](https://img.shields.io/codecov/c/github/gund/ng-http-interceptor.svg?maxAge=2592000)](https://codecov.io/gh/gund/ng-http-interceptor)
+[![Code Climate](https://img.shields.io/codeclimate/github/gund/ng-http-interceptor.svg?maxAge=2592000)](https://codeclimate.com/github/gund/ng-http-interceptor)
+[![Npm](https://img.shields.io/npm/v/ng-http-interceptor.svg?maxAge=2592000)](https://badge.fury.io/js/ng-http-interceptor)
+[![Npm Downloads](https://img.shields.io/npm/dt/ng2-http-interceptor.svg?maxAge=2592000)](https://www.npmjs.com/package/ng-http-interceptor)
+[![Licence](https://img.shields.io/npm/l/ng-http-interceptor.svg?maxAge=2592000)](https://github.com/gund/ng-http-interceptor/blob/master/LICENSE)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 ## Features
@@ -49,7 +51,7 @@ Please make sure that you are importing `ts-helpers` module in your application.
 To install this library, run:
 
 ```bash
-$ npm install ng2-http-interceptor --save
+$ npm install ng-http-interceptor --save
 ```
 
 ## Usage
