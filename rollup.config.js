@@ -1,8 +1,13 @@
+import nodeResolve from 'rollup-plugin-node-resolve';
+
 export default {
     entry: 'dist/index.js',
     dest: 'dist/bundles/ng-http-interceptor.umd.js',
     format: 'umd',
     moduleName: 'httpInterceptor',
+    plugins: [
+        nodeResolve({ jsnext: true, browser: true })
+    ],
     globals: {
         '@angular/core': 'ng.core',
         '@angular/http': 'ng.http',
@@ -12,7 +17,8 @@ export default {
         'rxjs/add/operator/switchMap': 'Rx.Observable.prototype',
         'rxjs/add/operator/mergeMap': 'Rx.Observable.prototype',
         'rxjs/add/operator/publishLast': 'Rx.Observable.prototype',
-        'rxjs/add/operator/catch': 'Rx.Observable.prototype'
+        'rxjs/add/operator/catch': 'Rx.Observable.prototype',
+        'tslib': 'tslib'
     },
     external: [
         '@angular/core',

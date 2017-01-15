@@ -12,6 +12,10 @@
 [![Licence](https://img.shields.io/npm/l/ng-http-interceptor.svg?maxAge=2592000)](https://github.com/gund/ng-http-interceptor/blob/master/LICENSE)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
+This is update for Angular 4+.  
+Basically there is no breaking changes in API
+but only in bundling and upgraded version of Typescript.
+
 ## Features
 
 * Registering interceptors globally
@@ -43,8 +47,8 @@
 This library uses `Proxy` from ES6 spec so if you need to support browsers
 that are ES5 compatible include [proxy-polyfill](https://github.com/GoogleChrome/proxy-polyfill).  
   
-If you are getting error like: `ReferenceError: __extends is not defined`  
-Please make sure that you are importing `ts-helpers` module in your application.
+Library uses `tslib` (standard Typescript runtime library) so please make sure
+you have this module installed via `npm`.
 
 ## Installation
 
