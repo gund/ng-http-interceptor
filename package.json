@@ -1,6 +1,6 @@
 {
   "name": "ng-http-interceptor",
-  "version": "0.0.0-semantically-relesed",
+  "version": "3.0.0-beta.0",
   "scripts": {
     "prebuild": "rimraf dist compiled",
     "build": "npm run build:main",
