@@ -43,7 +43,8 @@
   "bugs": {
     "url": "https://github.com/gund/ng-http-interceptor/issues"
   },
-  "main": "./dist/index.js",
+  "main": "./dist/bundles/ng-http-interceptor.umd.js",
+  "module": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "peerDependencies": {
     "@angular/core": "^4.0.0-beta.4",
