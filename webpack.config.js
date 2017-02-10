@@ -8,8 +8,11 @@ module.exports = {
   devtool: 'inline-source-map',
   context: path.resolve(__dirname, './'),
   resolve: {
-    extensions: ['', '.ts', '.js'],
-    root: appRoot
+    modules: [
+      "node_modules",
+      appRoot,
+    ],
+    extensions: ['.ts', '.js']
   },
   entry: {
     test: path.resolve(appRoot, 'test.ts')
@@ -19,24 +22,22 @@ module.exports = {
     filename: '[name].bundle.js'
   },
   module: {
-    preLoaders: [
+    rules: [
       {
+        enforce: 'pre',
         test: /\.ts$/,
         loader: 'tslint-loader',
-        exclude: [
-          path.resolve(projectRoot, 'node_modules')
-        ]
+        exclude: /node_modules/
       },
       {
+        enforce: 'pre',
         test: /\.js$/,
         loader: 'source-map-loader',
         exclude: [
-          path.resolve(projectRoot, 'node_modules/rxjs'),
-          path.resolve(projectRoot, 'node_modules/@angular')
+          /node_modules\/rxjs/,
+          /node_modules\/@angular/
         ]
-      }
-    ],
-    loaders: [
+      },
       {
         test: /\.ts$/,
         loaders: [
@@ -58,11 +59,11 @@ module.exports = {
       { test: /\.json$/, loader: 'json-loader' },
       { test: /\.css$/, loaders: ['raw-loader', 'postcss-loader'] },
       { test: /\.(jpg|png)$/, loader: 'url-loader?limit=128000' },
-      { test: /\.html$/, loader: 'raw-loader', exclude: [path.resolve(appRoot, 'index.html')] }
-    ],
-    postLoaders: [
+      { test: /\.html$/, loader: 'raw-loader', exclude: [path.resolve(appRoot, 'index.html')] },
       {
-        test: /\.(js|ts)$/, loader: 'sourcemap-istanbul-instrumenter-loader',
+        enforce: 'post',
+        test: /\.(js|ts)$/,
+        loader: 'sourcemap-istanbul-instrumenter-loader',
         exclude: [
           /\.(e2e|spec)\.ts$/,
           /node_modules/
@@ -75,16 +76,20 @@ module.exports = {
     new webpack.SourceMapDevToolPlugin({
       filename: null, // if no value is provided the sourcemap is inlined
       test: /\.(ts|js)($|\?)/i // process .js and .ts files only
+    }),
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        tslint: {
+          emitErrors: false,
+          failOnHint: false,
+          resourcePath: `./src`
+        }
+      }
     })
   ],
-  tslint: {
-    emitErrors: false,
-    failOnHint: false,
-    resourcePath: `./src`
-  },
   node: {
     fs: 'empty',
-    global: 'window',
+    global: true,
     process: false,
     crypto: 'empty',
     module: false,
