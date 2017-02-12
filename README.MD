@@ -1,5 +1,7 @@
 # ng-http-interceptor
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/gund/ng-http-interceptor.svg)](https://greenkeeper.io/)
+
 > Http Interceptor library for Angular
 
 *Previously was called `ng2-http-interceptor`*
