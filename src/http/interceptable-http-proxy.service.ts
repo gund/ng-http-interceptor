@@ -36,20 +36,13 @@ export class InterceptableHttpProxyService implements ProxyHandler<any> {
           return Observable.empty();
         }
 
-        const response = this.http[method].apply(this.http, args)
-          .publishLast()
-          .refCount();
+        const response = this.http[method].apply(this.http, args);
 
-        return response
-          .flatMap(this._responseCall(args, method, response, context))
-          .catch(this._responseCall(args, method, response, context));
+        return this.httpInterceptorService._interceptResponse(
+          InterceptableHttpProxyService._extractUrl(args), method, response, context);
       });
   }
 
-  private _responseCall(args, method, response, context) {
-    return () => this.httpInterceptorService._interceptResponse(
-      InterceptableHttpProxyService._extractUrl(args), method, response, context);
-  }
 }
 
 export const _proxyTarget = () => null;
