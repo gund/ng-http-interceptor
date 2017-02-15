@@ -36,9 +36,7 @@ export class InterceptableHttpProxyService implements ProxyHandler<any> {
           return Observable.empty();
         }
 
-        const response = this.http[method].apply(this.http, args)
-          .publishLast()
-          .refCount();
+        const response = this.http[method].apply(this.http, args);
 
         return this.httpInterceptorService._interceptResponse(
           InterceptableHttpProxyService._extractUrl(args), method, response, context);
