@@ -40,16 +40,11 @@ export class InterceptableHttpProxyService implements ProxyHandler<any> {
           .publishLast()
           .refCount();
 
-        return response
-          .flatMap(this._responseCall(args, method, response, context))
-          .catch(this._responseCall(args, method, response, context));
+        return this.httpInterceptorService._interceptResponse(
+          InterceptableHttpProxyService._extractUrl(args), method, response, context);
       });
   }
 
-  private _responseCall(args, method, response, context) {
-    return () => this.httpInterceptorService._interceptResponse(
-      InterceptableHttpProxyService._extractUrl(args), method, response, context);
-  }
 }
 
 export const _proxyTarget = () => null;
