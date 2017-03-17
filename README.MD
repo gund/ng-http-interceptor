@@ -78,8 +78,7 @@ constructor(http: Http, httpInterceptor: HttpInterceptorService) {
     });
 
     httpInterceptor.response().addInterceptor((res, method) => {
-      res.do(r => console.log(method, r));
-      return res;
+      return res.do(r => console.log(method, r));
     });
     
     this.http.get('/')
