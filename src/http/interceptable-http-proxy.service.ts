@@ -25,6 +25,11 @@ export class InterceptableHttpProxyService implements ProxyHandler<any> {
   apply(target: any, thisArg: any, argArray?: any): any {
     const method = InterceptableHttpProxyService._callStack.pop();
 
+    // Comply with strict null checks
+    if (!method) {
+      return Observable.empty();
+    }
+
     // create a object without prototype as the context object
     const context = Object.create(null);
 

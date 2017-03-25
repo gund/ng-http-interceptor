@@ -156,7 +156,7 @@ describe('Service: HttpInterceptor', () => {
       expect(fn1).toHaveBeenCalledWith(observableMock, method, undefined);
       expect(fn2).toHaveBeenCalledWith(observableMock, method, undefined);
       expect(fn3).toHaveBeenCalledWith(observableMock, method, undefined);
-      expect(res).toBe('changed observable');
+      expect(res).toBe('changed observable' as any);
     });
   });
 });

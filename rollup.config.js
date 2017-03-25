@@ -1,3 +1,4 @@
+import nodeResolve from 'rollup-plugin-node-resolve';
 import { globalsRegex, GLOBAL } from 'rollup-globals-regex';
 
 export default {
@@ -5,6 +6,9 @@ export default {
     dest: 'dist/bundles/ng-http-interceptor.umd.js',
     format: 'umd',
     moduleName: 'httpInterceptor',
+    plugins: [
+        nodeResolve({ jsnext: true, browser: true })
+    ],
     globals: globalsRegex({
         'tslib': 'tslib',
         [GLOBAL.NG2]: GLOBAL.NG2.TPL,

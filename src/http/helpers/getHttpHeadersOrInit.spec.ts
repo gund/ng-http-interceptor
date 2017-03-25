@@ -21,8 +21,8 @@ describe('getHttpHeadersOrInit() function', () => {
     const data = [0, 1];
     const res = getHttpHeadersOrInit(data, 'method');
 
-    expect(res).toBe('headers');
-    expect(data).toEqual([0, { headers: 'headers' }]);
+    expect(res).toBe('headers' as any);
+    expect(data).toEqual([0, { headers: 'headers' }] as any);
   });
 
   it('should create `Headers` if not found in `options`, return it and set back', () => {
@@ -35,7 +35,7 @@ describe('getHttpHeadersOrInit() function', () => {
     const res = getHttpHeadersOrInit(data, 'method');
 
     expect(res).toEqual(jasmine.any(Headers));
-    expect(data).toEqual([0, { headers: jasmine.any(Headers) }]);
+    expect(data).toEqual([0, { headers: jasmine.any(Headers) }] as any);
   });
 
 });

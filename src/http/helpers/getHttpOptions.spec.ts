@@ -14,7 +14,7 @@ describe('getHttpOptions() function', () => {
 
   it('should return value from `data` by index returned from getHttpOptionsIdx()', () => {
     getHttpOptionsIdxSpy.and.returnValue(2);
-    expect(getHttpOptions([1, 2, 3], 'method')).toBe(3);
+    expect(getHttpOptions([1, 2, 3], 'method')).toBe(3 as any);
   });
 
   it('should return `new RequestOptions` if no value at the index found by default', () => {
