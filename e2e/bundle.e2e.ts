@@ -5,7 +5,7 @@ describe('Umd bundle', () => {
   beforeEach(() => browser.get('http://localhost:8080'));
 
   it('should have title', () => {
-    expect(browser.getTitle()).toBe('Ng Http Demo');
+    expect(browser.getTitle()).toBe('Ng Http Demo' as any);
   });
 
   describe('Ng App', () => {
@@ -14,13 +14,13 @@ describe('Umd bundle', () => {
     describe('controls', () => {
       it('should be present', () => {
         const h2 = browser.element(by.css('h2'));
-        expect(h2.getText()).toBe('Ng2 Http Interceptor Demo');
+        expect(h2.getText()).toBe('Ng2 Http Interceptor Demo' as any);
 
         const input = browser.element(by.css('input[type="text"]'));
         expect(input.isPresent()).toBeTruthy();
 
         const button = browser.element(by.css('button'));
-        expect(button.getText()).toBe('Make request');
+        expect(button.getText()).toBe('Make request' as any);
       });
     });
 
@@ -50,7 +50,7 @@ describe('Umd bundle', () => {
         btn.click();
         browser.waitForAngular();
 
-        expect(requests.count()).toBe(2);
+        expect(requests.count()).toBe(2 as any);
         expect(requests.last().getText()).toMatch(/get request to \/none/i);
 
         expect(error.isPresent()).toBeTruthy();
