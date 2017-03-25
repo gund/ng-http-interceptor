@@ -12,9 +12,8 @@
 [![Licence](https://img.shields.io/npm/l/ng-http-interceptor.svg?maxAge=2592000)](https://github.com/gund/ng-http-interceptor/blob/master/LICENSE)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-This is update for Angular 4+.  
-Basically there is no breaking changes in API
-but only in bundling and upgraded version of Typescript.
+Version 3+ is compatible with Angular 4+.    
+If you are looking for version for Angular 2 install `ng-http-interceptro@^2.0.0`
 
 ## Features
 
