@@ -52,6 +52,14 @@ describe('Service: InterceptableHttpProxy', () => {
       HttpInterceptorServiceMock._interceptResponse.and.returnValue(Observable.of('modified response'));
     });
 
+    it('should return empty observable if nothing in callStack', () => {
+      spyOn(Observable, 'empty').and.returnValue('empty');
+
+      const res = service.apply(null, null, null);
+
+      expect(res).toBe('empty');
+    });
+
     it('should call _interceptRequest() on service and method on Http', async(() => {
       service.get(null, 'testMethod', null);
       service.apply(null, null, ['url']).subscribe();
