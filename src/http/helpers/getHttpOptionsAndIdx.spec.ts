@@ -33,7 +33,7 @@ describe('getHttpOptionsAndIdx() function', () => {
     expect(getHttpOptionsAndIdx([], 'method')).toEqual({
       options: 'options',
       idx: 5
-    });
+    } as any);
   });
 
 });
