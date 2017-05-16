@@ -174,6 +174,15 @@ _Description_: Gets `Headers` from _data_ array.
 If no `RequestOptions` found - creates it and updates original _data_ array.  
 If no `Headers` found - creates it and sets to `RequestOptions`.
 
+Exmaple how to add custom headers to requests:
+```ts
+httpInterceptor.request().addInterceptor((data, method) => {
+  const headers = getHttpHeadersOrInit(data, method);
+  headers.set('X-Custom-Header', 'value');
+  return data;
+});
+```
+
 **getHttpOptionsAndIdx()**
 ```ts
 function getHttpOptionsAndIdx(
