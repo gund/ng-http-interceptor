@@ -45,10 +45,6 @@ If you are looking for version for Angular 2 install `ng-http-interceptor@^2.0.0
 
 This library uses `Proxy` from ES6 spec so if you need to support browsers
 that are ES5 compatible include [proxy-polyfill](https://github.com/GoogleChrome/proxy-polyfill).  
-NOTE: Original proxy polyfill returns arguments as an Arguments Object instead of Array so if you are planning to use it
-you have to consider that. You may have some problems with setting headers in IE (see [this issue](https://github.com/gund/ng-http-interceptor/issues/147#issuecomment-304391089)).  
-Or you can just use pathed version of [polyfill](https://github.com/gund/proxy-polyfill) unless
-[this PR](https://github.com/GoogleChrome/proxy-polyfill/pull/25) will be merged.
   
 Library uses `tslib` (standard Typescript runtime library) so please make sure
 you have this module installed via `npm`.
