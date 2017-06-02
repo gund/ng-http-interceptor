@@ -2,9 +2,9 @@ import nodeResolve from 'rollup-plugin-node-resolve';
 import { globalsRegex, GLOBAL } from 'rollup-globals-regex';
 
 export default {
-    entry: 'dist/ng-http-interceptor.js',
-    dest: 'dist/bundles/ng-http-interceptor.es2015.js',
-    format: 'es',
+    entry: 'dist/bundles/ng-http-interceptor.es5.js',
+    dest: 'dist/bundles/ng-http-interceptor.umd.js',
+    format: 'umd',
     moduleName: 'httpInterceptor',
     plugins: [
         nodeResolve({ jsnext: true, browser: true })
@@ -17,7 +17,7 @@ export default {
         [GLOBAL.RX_OPERATOR]: GLOBAL.RX_OPERATOR.TPL,
     }),
     external: (moduleId) => {
-        if (/^(\@angular|rxjs|tslib)\/?/.test(moduleId)) {
+        if (/^(\@angular|rxjs)\/?/.test(moduleId)) {
             return true;
         }
 
