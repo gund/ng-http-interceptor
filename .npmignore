@@ -39,3 +39,4 @@ travis_after_all.py
 .travis.yml
 .to_export_back
 *.deb
+scripts

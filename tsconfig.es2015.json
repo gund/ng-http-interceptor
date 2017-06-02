@@ -10,7 +10,7 @@
     "moduleResolution": "node",
     "outDir": "./dist",
     "sourceMap": true,
-    "target": "es5",
+    "target": "es2015",
     "typeRoots": [
       "./node_modules/@types"
     ]
@@ -19,6 +19,10 @@
     "src/index.ts"
   ],
   "angularCompilerOptions": {
-    "genDir": "compiled"
+    "strictMetadataEmit": true,
+    "skipTemplateCodegen": true,
+    "flatModuleOutFile": "ng-http-interceptor.js",
+    "flatModuleId": "httpInterceptor",
+    "annotateForClosureCompiler": true
   }
 }

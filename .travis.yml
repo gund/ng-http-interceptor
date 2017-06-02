@@ -8,7 +8,7 @@ notifications:
   email: false
 node_js:
   - node
-  - "6"
+  # - "6" # Excluding v6 due to issue with Yarn installation https://github.com/npm/npm/issues/14626
 branches:
   only:
     - master
