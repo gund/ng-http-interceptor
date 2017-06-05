@@ -22,7 +22,7 @@
     "strictMetadataEmit": true,
     "skipTemplateCodegen": true,
     "flatModuleOutFile": "ng-http-interceptor.js",
-    "flatModuleId": "httpInterceptor",
+    "flatModuleId": "ng-http-interceptor",
     "annotateForClosureCompiler": true
   }
 }
