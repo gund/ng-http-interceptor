@@ -1,4 +1,4 @@
-import { browser, by, ElementFinder, ElementArrayFinder } from 'protractor';
+import { browser, by, ElementArrayFinder, ElementFinder } from 'protractor';
 
 describe('Umd bundle', () => {
 
@@ -9,7 +9,7 @@ describe('Umd bundle', () => {
   });
 
   describe('Ng App', () => {
-    beforeEach(() => browser.wait(() => browser.driver.isElementPresent(by.css('.loaded-app'))));
+    beforeEach(() => browser.wait(() => browser.element(by.css('.loaded-app')).isPresent()));
 
     describe('controls', () => {
       it('should be present', () => {
